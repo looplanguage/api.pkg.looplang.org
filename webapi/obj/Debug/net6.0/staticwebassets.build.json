@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "qWIDttiHurVt0W82xiTX0A7xgYJ9/MKKTQaaiKq7axg=",
-  "Source": "webapi",
-  "BasePath": "_content/webapi",
+  "Hash": "R9d6G91lFK9hIFcLW1p11AMq49hAcIqnl5zBbg9bsF8=",
+  "Source": "lpr.Webapi",
+  "BasePath": "_content/lpr.Webapi",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

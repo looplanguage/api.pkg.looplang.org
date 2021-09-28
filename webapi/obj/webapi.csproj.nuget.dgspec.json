@@ -1,28 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "P:\\api.pkg.looplang.org\\webapi\\webapi.csproj": {}
+    "C:\\Users\\nickv\\source\\repos\\api.pkg.looplang.org\\webapi\\webapi.csproj": {}
   },
   "projects": {
-    "P:\\api.pkg.looplang.org\\webapi\\webapi.csproj": {
+    "C:\\Users\\nickv\\source\\repos\\api.pkg.looplang.org\\webapi\\webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "P:\\api.pkg.looplang.org\\webapi\\webapi.csproj",
+        "projectUniqueName": "C:\\Users\\nickv\\source\\repos\\api.pkg.looplang.org\\webapi\\webapi.csproj",
         "projectName": "webapi",
-        "projectPath": "P:\\api.pkg.looplang.org\\webapi\\webapi.csproj",
-        "packagesPath": "C:\\Users\\Neal Geilen\\.nuget\\packages\\",
-        "outputPath": "P:\\api.pkg.looplang.org\\webapi\\obj\\",
+        "projectPath": "C:\\Users\\nickv\\source\\repos\\api.pkg.looplang.org\\webapi\\webapi.csproj",
+        "packagesPath": "C:\\Users\\nickv\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nickv\\source\\repos\\api.pkg.looplang.org\\webapi\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Neal Geilen\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\nickv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
