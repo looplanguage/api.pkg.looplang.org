@@ -1,4 +1,4 @@
-namespace lpr
+namespace lpr.WebAPI
 {
     public class WeatherForecast
     {
