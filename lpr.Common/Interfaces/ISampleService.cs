@@ -8,5 +8,6 @@ namespace lpr.Common.Interfaces
 {
     public interface ISampleService
     {
+        public Task<int> getUserById(int id);
     }
 }

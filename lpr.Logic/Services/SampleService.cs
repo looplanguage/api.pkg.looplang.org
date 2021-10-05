@@ -15,5 +15,10 @@ namespace lpr.Logic.Services
         {
             _ctx = ctx;
         }
+
+        public async Task<int> getUserById(int id)
+        {
+            return 69 + id;
+        }
     }
 }

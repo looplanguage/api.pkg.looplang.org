@@ -24,7 +24,11 @@ namespace lpr.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> getUserById(int id)
         {
-            return StatusCode(200, id);
+            int output = await _srv.getUserById(id);
+            return StatusCode(200, output);
         }
+
+        //Source downloading files:
+        //https://codeburst.io/download-files-using-web-api-ae1d1025f0a9
     }
 }
