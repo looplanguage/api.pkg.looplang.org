@@ -11,7 +11,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ipr.Common\Ipr.Common.csproj" />
+    <ProjectReference Include="..\lpr.Data\lpr.Data.csproj" />
+    <ProjectReference Include="..\lpr.Logic\lpr.Logic.csproj" />
   </ItemGroup>
 
 </Project>
