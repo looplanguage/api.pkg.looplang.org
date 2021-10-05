@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ipr.Common\Ipr.Common.csproj" />
     <ProjectReference Include="..\lpr.Data\lpr.Data.csproj" />
     <ProjectReference Include="..\lpr.Logic\lpr.Logic.csproj" />
   </ItemGroup>

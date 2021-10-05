@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using lpr.Common.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace lpr.WebAPI.Controllers
 {
@@ -6,6 +7,12 @@ namespace lpr.WebAPI.Controllers
     [Route("[controller]")]
     public class SampleController : ControllerBase
     {
+        private readonly ISampleService _srv;
+        public SampleController(ISampleService srv)
+        {
+            _srv = srv;
+        }
+
         /// <summary>
         ///     Retrieves a user by their ID.
         /// </summary>

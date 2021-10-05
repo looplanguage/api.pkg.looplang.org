@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace lpr.Logic.Services
 {
-    public class SampleService
+    public class SampleService: ISampleService
     {
         private readonly ISampleContext _ctx;
 

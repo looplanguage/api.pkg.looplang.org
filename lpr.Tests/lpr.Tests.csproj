@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ipr.Common\Ipr.Common.csproj" />
+    <ProjectReference Include="..\lpr.Common\lpr.Common.csproj" />
   </ItemGroup>
 
 </Project>
