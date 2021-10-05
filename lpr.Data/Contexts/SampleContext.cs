@@ -12,6 +12,7 @@ namespace lpr.Data.Contexts
     public class SampleContext : DbContext, ISampleContext
     {
         public DbSet<Account> Account { get; set; }
+
         public SampleContext(DbContextOptions<SampleContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder model)
