@@ -22,7 +22,7 @@ namespace lpr.WebAPI.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> getUserById(int id)
+        public async Task<IActionResult> GetUserById(int id)
         {
             int output = await _srv.getUserById(id);
             return StatusCode(200, output);
