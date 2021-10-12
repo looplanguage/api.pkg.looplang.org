@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 //builder.Services.AddScoped<ISampleService, SampleService>();
 
-builder.Services.AddDbContext<SampleContext>(options =>
+builder.Services.AddDbContext<LprContext>(options =>
 {
     options.UseMySql("server=localhost; user id =root; password=root; database=LPR; ", 
         new MariaDbServerVersion(new Version(10, 5, 9)));
@@ -18,7 +18,7 @@ builder.Services.AddDbContext<SampleContext>(options =>
 
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 {
-    using (var context = scope.ServiceProvider.GetService<SampleContext>())
+    using (var context = scope.ServiceProvider.GetService<LprContext>())
     {
         context.Database.EnsureCreated();
     }
