@@ -11,12 +11,12 @@ namespace lpr.Logic.Services
 {
     public class SampleService: ISampleService
     {
-        private readonly ISampleContext _ctx;
+        //private readonly ISampleContext _ctx;
 
-        public SampleService(ISampleContext ctx)
-        {
-            _ctx = ctx;
-        }
+        //public SampleService(ISampleContext ctx)
+        //{
+        //    _ctx = ctx;
+        //}
 
         public async Task<int> getUserById(int id)
         {

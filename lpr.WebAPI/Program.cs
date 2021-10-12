@@ -8,7 +8,7 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddScoped<ISampleService, SampleService>();
+builder.Services.AddScoped<ISampleService, SampleService>();
 
 builder.Services.AddDbContext<ILprDbContext, LprContext>(options =>
 {
