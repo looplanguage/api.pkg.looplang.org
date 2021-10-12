@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace lpr.Data.Contexts
 {
-    public class SampleContext : DbContext, ISampleContext
+    public class LprContext : DbContext, ILprDbContext
     {
         public DbSet<Account> Account { get; set; }
 
-        public SampleContext(DbContextOptions<SampleContext> options) : base(options) { }
+        public LprContext(DbContextOptions<LprContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder model)
         {
