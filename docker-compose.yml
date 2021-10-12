@@ -1,0 +1,15 @@
+﻿version: '0.1'
+
+services:
+  api:
+    container_name: API
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Ipr.WebAPI/Dockerfile
+    ports:
+      - 5001:5001 
+  db:
+    container_name: Database
+    networks:
+      
