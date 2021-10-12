@@ -12,9 +12,18 @@ namespace lpr.Common.Models
         [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Logo { get; set; }
+        public string? Logo { get; set; }
         public List<Package> Packages { get; set; }
-        public string Documentation { get; set; }
+        public string? Documentation { get; set; }
         public DateTime Created { get; set; }
+
+        public Organisation(string _name)
+        {
+            Name = _name;
+            Id = Guid.NewGuid();
+            Created = DateTime.UtcNow;
+        }
+
+        public Organisation(){}
     }
 }

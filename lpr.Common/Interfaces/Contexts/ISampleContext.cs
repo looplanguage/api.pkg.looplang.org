@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lpr.Common.Interfaces
+namespace lpr.Common.Interfaces.Contexts
 {
-    public interface ISampleService
+    public interface ISampleContext
     {
-        public Task<int> getUserById(int id);
     }
 }
