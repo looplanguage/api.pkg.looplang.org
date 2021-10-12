@@ -12,7 +12,7 @@ namespace lpr.Common.Models
         public int Major { get; set; }
         public int Minor { get; set; }
         public int Patch { get; set; }
-        public string Documentation { get; set; }
+        public string? Documentation { get; set; }
         public string File { get; set; }
         public DateTime Created { get; set; }
         public List<Account> Participants { get; set; }
