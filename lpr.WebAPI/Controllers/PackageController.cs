@@ -16,10 +16,10 @@ namespace lpr.WebAPI.Controllers
         }
 
         // GET: PackageController
-        [HttpGet()]
+        [HttpPost("GetPackagesPaginated")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Index(int page, int amount)
+        public async Task<IActionResult> GetPackagesPaginated(int page, int amount)
         {
             List<Package> output = await _srv.GetPackagesPaginatedAsync(page, amount);
             return StatusCode(200, output);
