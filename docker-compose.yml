@@ -1,15 +1,21 @@
-﻿version: '0.1'
-
+﻿version: '3.3'
 services:
-  api:
-    container_name: API
-    restart: on-failure
-    build:
-      context: .
-      dockerfile: Ipr.WebAPI/Dockerfile
-    ports:
-      - 5001:5001 
+  
+#  api:
+#    container_name: API
+#    restart: on-failure
+#    build:
+#      context: .
+#      dockerfile: lpr.WebAPI/Dockerfile
+#    ports:
+#      - 5001:5001 
+#    depends_on:
+#      - db
   db:
     container_name: Database
-    networks:
+    build: 
+      context: .
+      dockerfile: ./lpr.Data/Dockerfile
+    ports:
+      - 3306:3306
       
