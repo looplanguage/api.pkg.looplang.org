@@ -1,4 +1,4 @@
-﻿version: '3.8'
+﻿version: "3.8"
 
 services:
   api:
@@ -18,7 +18,7 @@ services:
     container_name: Database
     image: mariadb:10.5.9
     restart: on-failure
-    environment: 
+    environment:
       - MARIADB_ROOT_PASSWORD=root
       - MYSQL_ROOT_PASSWORD=root
     ports:
