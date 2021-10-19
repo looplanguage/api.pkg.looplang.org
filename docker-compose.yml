@@ -1,7 +1,6 @@
 ﻿version: '3.8'
 
 services:
-  
   api:
     container_name: API
     restart: on-failure
