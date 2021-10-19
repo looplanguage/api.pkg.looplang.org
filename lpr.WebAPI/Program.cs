@@ -11,46 +11,38 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-//builder.Services.AddScoped<ISampleService, SampleService>();
+// builder.Services.AddScoped<ISampleService, SampleService>();
 
-builder.Services.AddDbContext<ILprDbContext, LprContext>(options =>
-{
-    string ?connectionString = Environment.GetEnvironmentVariable("MariaDB_ConnectionString");
-    if (connectionString == null)
-    {
-        connectionString = "Server=localhost;Database=LPR;User=root;Password=root";
-    }
-    options.UseMySql(connectionString, 
-        new MariaDbServerVersion(new Version(10, 5, 9)));
+builder.Services.AddDbContext<ILprDbContext, LprContext>(options => {
+  string? connectionString =
+      Environment.GetEnvironmentVariable("MariaDB_ConnectionString");
+  if (connectionString == null) {
+    connectionString = "Server=localhost;Database=LPR;User=root;Password=root";
+  }
+  options.UseMySql(connectionString,
+                   new MariaDbServerVersion(new Version(10, 5, 9)));
 });
 
-//builder.Services.AddDbContext<ILprDbContext, new LprContext()>()
+// builder.Services.AddDbContext<ILprDbContext, new LprContext()>()
 
-
-using (var scope = builder.Services.BuildServiceProvider().CreateScope())
-{
-    using (var context = scope.ServiceProvider.GetService<ILprDbContext>())
-    {
-        context.Database.EnsureCreated();
-    }
+using (var scope = builder.Services.BuildServiceProvider().CreateScope()) {
+  using (var context = scope.ServiceProvider.GetService<ILprDbContext>()) {
+    context.Database.EnsureCreated();
+  }
 }
 
-
-
-    builder.Services.AddControllers();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new() { Title = "lpr.WebAPI", Version = "v1" });
+builder.Services.AddControllers();
+builder.Services.AddSwaggerGen(c => {
+  c.SwaggerDoc("v1", new() { Title = "lpr.WebAPI", Version = "v1" });
 });
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "lpr.WebAPI v1");
-    c.RoutePrefix = string.Empty;
+app.UseSwaggerUI(c => {
+  c.SwaggerEndpoint("/swagger/v1/swagger.json", "lpr.WebAPI v1");
+  c.RoutePrefix = string.Empty;
 });
 
 app.UseHttpsRedirection();
