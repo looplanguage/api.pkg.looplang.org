@@ -18,6 +18,6 @@ services:
     environment: 
       - MARIADB_ROOT_PASSWORD=root
     ports:
-      - 6603:3306
+      - 3306:3306
     volumes:
       - ./MariaDB-Data:/var/lib/mysql
