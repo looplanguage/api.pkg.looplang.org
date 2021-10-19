@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Version = lpr.Common.Models.Version;
 
 namespace lpr.Data.Contexts
 {
@@ -14,6 +15,9 @@ namespace lpr.Data.Contexts
     {
         public DbSet<Account> Account { get; set; }
         public DbSet<Organisation> Organisation { get; set; }
+        public DbSet<Package> Package { get; set; }
+        public DbSet<Version> Version { get; set; }
+
         public LprContext(DbContextOptions<LprContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder model)

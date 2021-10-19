@@ -1,4 +1,6 @@
 ﻿using lpr.Common.Interfaces;
+using lpr.Common.Interfaces.Data;
+using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
 using lpr.Data;
 using System;
@@ -11,31 +13,35 @@ namespace lpr.Logic.Services
 {
     public class PackageService : IPackageService
     {
-        private readonly PackageData _data;
-        public PackageService(PackageData data)
+        private readonly IPackageData _data;
+        public PackageService(IPackageData data)
         {
             _data = data;
         }
 
-        public Task<List<Package>> GetPackagesPaginatedAsync(int page, int amount)
+        public async Task<List<Package>> GetPackagesPaginatedAsync(int page, int amount)
         {
-            throw new NotImplementedException();
+            return await _data.GetPackagesPaginatedAsync(page, amount);
         }
 
-        public Task<List<Package>> GetTopPackagesAsync(int amount)
+        public async Task<List<Package>> GetTopPackagesAsync(int amount)
         {
-            throw new NotImplementedException();
+            return await _data.GetTopPackagesAsync(amount);
         }
 
-        public Task<bool> CreatePackage(Package newPackage)
+        public async Task<Package> CreatePackageAsync(Package newPackage)
         {
-            throw new NotImplementedException();
+            return await _data.CreatePackageAsync(newPackage);
         }
 
-        public Task<bool> ArchivePackage(Guid packageId)
+        public async Task<Package> GetFullPackageAsync(Guid packageId)
         {
-            throw new NotImplementedException();
+            return await _data.GetFullPackageAsync(packageId);
         }
 
+        public async Task<Package> ArchivePackageAsync(Guid packageId)
+        {
+            return await _data.ArchivePackageAsync(packageId);
+        }
     }
 }

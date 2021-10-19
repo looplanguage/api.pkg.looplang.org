@@ -1,5 +1,8 @@
 using lpr.Common.Interfaces;
 using lpr.Common.Interfaces.Contexts;
+using lpr.Common.Interfaces.Data;
+using lpr.Common.Interfaces.Services;
+using lpr.Data;
 using lpr.Data.Contexts;
 using lpr.Logic.Services;
 using Microsoft.EntityFrameworkCore;
@@ -9,15 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 //builder.Services.AddScoped<ISampleService, SampleService>();
+builder.Services.AddScoped<IPackageService, PackageService>();
+builder.Services.AddScoped<IPackageData, PackageData>();
 
 builder.Services.AddDbContext<ILprDbContext, LprContext>(options =>
 {
     options.UseMySql("server=localhost; user id =root; password=root; database=LPR; ", 
         new MariaDbServerVersion(new Version(10, 5, 9)));
 });
-
-//builder.Services.AddDbContext<ILprDbContext, new LprContext()>()
-
 
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 {
@@ -27,9 +29,7 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
     }
 }
 
-
-
-    builder.Services.AddControllers();
+builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "lpr.WebAPI", Version = "v1" });
