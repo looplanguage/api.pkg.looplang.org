@@ -1,21 +1,23 @@
-﻿version: '3.3'
+﻿version: '3.8'
+
 services:
   
-#  api:
-#    container_name: API
-#    restart: on-failure
-#    build:
-#      context: .
-#      dockerfile: lpr.WebAPI/Dockerfile
-#    ports:
-#      - 5001:5001 
-#    depends_on:
-#      - db
+  api:
+    container_name: API
+    build:
+      context: .
+      dockerfile: ./lpr.WebAPI/Dockerfile
+    ports:
+      - 5000:80
+      - 5001:443
+    depends_on:
+      - db
   db:
     container_name: Database
-    build: 
-      context: .
-      dockerfile: ./lpr.Data/Dockerfile
+    image: mariadb:10.5.9
+    environment: 
+      - MARIADB_ROOT_PASSWORD=root
     ports:
-      - 3306:3306
-      
+      - 6603:3306
+    volumes:
+      - ./MariaDB-Data:/var/lib/mysql

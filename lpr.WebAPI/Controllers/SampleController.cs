@@ -1,5 +1,7 @@
-﻿using lpr.Common.Interfaces.Contexts;
+﻿using System.Threading.Tasks;
+using lpr.Common.Interfaces.Contexts;
 using lpr.Common.Interfaces.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lpr.WebAPI.Controllers
