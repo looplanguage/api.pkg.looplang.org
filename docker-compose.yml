@@ -4,19 +4,24 @@ services:
   
   api:
     container_name: API
+    restart: on-failure
     build:
       context: .
       dockerfile: ./lpr.WebAPI/Dockerfile
     ports:
       - 5000:80
       - 5001:443
+    environment:
+      - MariaDB_ConnectionString=Server=db;Database=LPR;User=root;Password=root
     depends_on:
       - db
   db:
     container_name: Database
     image: mariadb:10.5.9
+    restart: on-failure
     environment: 
       - MARIADB_ROOT_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
     ports:
       - 3306:3306
     volumes:

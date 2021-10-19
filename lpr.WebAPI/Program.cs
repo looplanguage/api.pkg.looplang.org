@@ -15,7 +15,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ILprDbContext, LprContext>(options =>
 {
-    options.UseMySql("Server=db;Database=LPR;User=root;Password=root", 
+    string ?connectionString = Environment.GetEnvironmentVariable("MariaDB_ConnectionString");
+    if (connectionString == null)
+    {
+        connectionString = "Server=localhost;Database=LPR;User=root;Password=root";
+    }
+    options.UseMySql(connectionString, 
         new MariaDbServerVersion(new Version(10, 5, 9)));
 });
 
