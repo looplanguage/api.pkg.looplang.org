@@ -11,7 +11,7 @@ namespace lpr.Common.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public List<Version> Versions { get; set; }
-        public string Documentation { get; set; }
+        public string? Documentation { get; set; }
         public DateTime Created {  get; set; }
     }
 }

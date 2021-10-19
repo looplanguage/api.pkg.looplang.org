@@ -1,4 +1,6 @@
 ﻿using lpr.Common.Interfaces;
+using lpr.Common.Interfaces.Contexts;
+using lpr.Common.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

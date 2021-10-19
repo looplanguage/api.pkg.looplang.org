@@ -1,4 +1,5 @@
 ﻿using lpr.Common.Interfaces;
+using lpr.Common.Interfaces.Contexts;
 using lpr.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,7 +13,7 @@ namespace lpr.Data.Contexts
     public class LprContext : DbContext, ILprDbContext
     {
         public DbSet<Account> Account { get; set; }
-
+        public DbSet<Organisation> Organisation { get; set; }
         public LprContext(DbContextOptions<LprContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder model)

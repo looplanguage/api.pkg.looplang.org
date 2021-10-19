@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Internal;
 
-namespace lpr.Common.Interfaces
+namespace lpr.Common.Interfaces.Contexts
 {
     public interface IDbContext
     {
