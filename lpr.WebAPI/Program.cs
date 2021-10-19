@@ -20,8 +20,8 @@ builder.Services.AddDbContext<ILprDbContext, LprContext>(options =>
     {
         connectionString = "Server=localhost;Database=LPR;User=root;Password=root";
     }
-    options.UseMySql(connectionString, 
-        new MariaDbServerVersion(new Version(10, 5, 9)));
+    options.UseMySql(connectionString,
+                     new MariaDbServerVersion(new Version(10, 5, 9)));
 });
 
 //builder.Services.AddDbContext<ILprDbContext, new LprContext()>()
@@ -37,10 +37,12 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 
 
 
-    builder.Services.AddControllers();
+builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "lpr.WebAPI", Version = "v1" });
+    c.SwaggerDoc("v1", new() {
+        Title = "lpr.WebAPI", Version = "v1"
+    });
 });
 
 var app = builder.Build();
