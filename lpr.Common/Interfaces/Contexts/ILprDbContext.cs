@@ -9,11 +9,23 @@ using Version = lpr.Common.Models.Version;
 
 namespace lpr.Common.Interfaces.Contexts
 {
-    public interface ILprDbContext : IDbContext, IDisposable
-    {
-        public DbSet<Account> Account {  get; set; }
-        public DbSet<Organisation> Organisation { get; set; }
-        public DbSet<Package> Package { get; set; }
-        public DbSet<Version> Version { get; set; }
+public interface ILprDbContext : IDbContext, IDisposable
+{
+    public DbSet<Account> Account {
+        get;
+        set;
     }
+    public DbSet<Organisation> Organisation {
+        get;
+        set;
+    }
+    public DbSet<Package> Package {
+        get;
+        set;
+    }
+    public DbSet<Version> Version {
+        get;
+        set;
+    }
+}
 }

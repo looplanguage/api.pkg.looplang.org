@@ -11,37 +11,37 @@ using System.Threading.Tasks;
 
 namespace lpr.Logic.Services
 {
-    public class PackageService : IPackageService
+public class PackageService : IPackageService
+{
+    private readonly IPackageData _data;
+    public PackageService(IPackageData data)
     {
-        private readonly IPackageData _data;
-        public PackageService(IPackageData data)
-        {
-            _data = data;
-        }
-
-        public async Task<List<Package>> GetPackagesPaginatedAsync(int page, int amount)
-        {
-            return await _data.GetPackagesPaginatedAsync(page, amount);
-        }
-
-        public async Task<List<Package>> GetTopPackagesAsync(int amount)
-        {
-            return await _data.GetTopPackagesAsync(amount);
-        }
-
-        public async Task<Package> CreatePackageAsync(Package newPackage)
-        {
-            return await _data.CreatePackageAsync(newPackage);
-        }
-
-        public async Task<Package> GetFullPackageAsync(Guid packageId)
-        {
-            return await _data.GetFullPackageAsync(packageId);
-        }
-
-        public async Task<Package> ArchivePackageAsync(Guid packageId)
-        {
-            return await _data.ArchivePackageAsync(packageId);
-        }
+        _data = data;
     }
+
+    public async Task<List<Package>> GetPackagesPaginatedAsync(int page, int amount)
+    {
+        return await _data.GetPackagesPaginatedAsync(page, amount);
+    }
+
+    public async Task<List<Package>> GetTopPackagesAsync(int amount)
+    {
+        return await _data.GetTopPackagesAsync(amount);
+    }
+
+    public async Task<Package> CreatePackageAsync(Package newPackage)
+    {
+        return await _data.CreatePackageAsync(newPackage);
+    }
+
+    public async Task<Package> GetFullPackageAsync(Guid packageId)
+    {
+        return await _data.GetFullPackageAsync(packageId);
+    }
+
+    public async Task<Package> ArchivePackageAsync(Guid packageId)
+    {
+        return await _data.ArchivePackageAsync(packageId);
+    }
+}
 }
