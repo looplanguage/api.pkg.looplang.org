@@ -9,28 +9,30 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace lpr.WebAPI.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class PackageController : ControllerBase
-    {
-        private readonly IPackageService _srv;
-        public PackageController(IPackageService srv) { _srv = srv; }
+[ApiController]
+[Route("[controller]")]
+public class PackageController : ControllerBase
+{
+    private readonly IPackageService _srv;
+    public PackageController(IPackageService srv) {
+        _srv = srv;
+    }
 
-        [HttpGet("GetPackagesPaginated/{page}/{amount}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetPackagesPaginated(int page, int amount)
+    [HttpGet("GetPackagesPaginated/{page}/{amount}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetPackagesPaginated(int page, int amount)
+    {
+        try
         {
-            try
-            {
-                List<Package> output = await _srv.GetPackagesPaginatedAsync(page, amount);
-                return StatusCode(200, output);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ErrorMessage(ex.Message));
-            }
+            List<Package> output = await _srv.GetPackagesPaginatedAsync(page, amount);
+            return StatusCode(200, output);
         }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new ErrorMessage(ex.Message));
+        }
+    }
 
     [HttpGet("GetTopPackages/{amount}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -48,21 +50,21 @@ namespace lpr.WebAPI.Controllers
         }
     }
 
-        [HttpPost("CreatePackage")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreatePackage([FromBody] PackageDtoIn newPackage)
+    [HttpPost("CreatePackage")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> CreatePackage([FromBody] PackageDtoIn newPackage)
+    {
+        try
         {
-            try
-            {
-                Package output =  await _srv.CreatePackageAsync(new Package(newPackage));
-                return StatusCode(200, output);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new ErrorMessage(ex.Message));
-            }
+            Package output =  await _srv.CreatePackageAsync(new Package(newPackage));
+            return StatusCode(200, output);
         }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new ErrorMessage(ex.Message));
+        }
+    }
 
     [HttpGet("GetFullPackage/{packageId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -95,6 +97,6 @@ namespace lpr.WebAPI.Controllers
             return StatusCode(500, new ErrorMessage(ex.Message));
         }
     }
-  }
+}
 }
 
