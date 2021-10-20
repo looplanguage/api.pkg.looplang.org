@@ -8,57 +8,39 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace lpr.Common.Models {
-public class Package {
+  public class Package {
     [Key]
     [Required]
-    public Guid Id {
-        get;
-        set;
-    }
+    public Guid Id { get; set; }
 
     [Required] [MaxLength(100)] [Column(
-                                     TypeName = "varchar(100)")] // Prevents international characters
+        TypeName = "varchar(100)")] // Prevents international characters
     public string Name {
-        get;
-        set;
+      get; set;
     }
 
     [NotMapped] public int? Downloads {
-        get {
-            if (Versions != null)
-                return Versions.Select(v => v.Downloads).Sum();
-            return null;
-        }
+      get {
+        if (Versions != null)
+          return Versions.Select(v => v.Downloads).Sum();
+        return null;
+      }
     }
 
-    public List<Version> Versions {
-        get;
-        set;
-    }
+    public List<Version> Versions { get; set; }
 
-    public string? Documentation {
-        get;
-        set;
-    }
+    public string? Documentation { get; set; }
 
-    public DateTime Created {
-        get;
-        set;
-    }
+    public DateTime Created { get; set; }
 
-    public bool Archived {
-        get;
-        set;
-    }
+    public bool Archived { get; set; }
 
     public Package() : base() {}
     public Package(PackageDtoIn dto) {
-        Name = dto.Name;
-        List<Version> versions = new() {
-            new Version(dto.InitialVersion)
-        };
-        Versions = versions;
-        Documentation = dto.Documentation;
+      Name = dto.Name;
+      List<Version> versions = new() { new Version(dto.InitialVersion) };
+      Versions = versions;
+      Documentation = dto.Documentation;
     }
-}
+  }
 }
