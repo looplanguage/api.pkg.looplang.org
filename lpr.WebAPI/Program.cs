@@ -1,6 +1,9 @@
 using System;
 using lpr.Common.Interfaces;
 using lpr.Common.Interfaces.Contexts;
+using lpr.Common.Interfaces.Data;
+using lpr.Common.Interfaces.Services;
+using lpr.Data;
 using lpr.Data.Contexts;
 using lpr.Logic.Services;
 using Microsoft.AspNetCore.Builder;
@@ -23,7 +26,8 @@ builder.Services.AddDbContext<ILprDbContext, LprContext>(options => {
                    new MariaDbServerVersion(new Version(10, 5, 9)));
 });
 
-// builder.Services.AddDbContext<ILprDbContext, new LprContext()>()
+builder.Services.AddScoped<IPackageService, PackageService>();
+builder.Services.AddScoped<IPackageData, PackageData>();
 
 using (var scope = builder.Services.BuildServiceProvider().CreateScope()) {
   using (var context = scope.ServiceProvider.GetService<ILprDbContext>()) {
