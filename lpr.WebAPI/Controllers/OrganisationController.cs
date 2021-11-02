@@ -41,16 +41,13 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetOrganisationsPaginated(int page,
-                                                          int amount)
-    {
-      try
-      {
+                                                               int amount) {
+      try {
         List<Organisation> output =
-            await _organisationService.GetOrganisationsPaginatedAsync(page, amount);
+            await _organisationService.GetOrganisationsPaginatedAsync(page,
+                                                                      amount);
         return StatusCode(200, output);
-      }
-      catch (Exception ex)
-      {
+      } catch (Exception ex) {
         return StatusCode(500, new ErrorMessage(ex.Message));
       }
     }
