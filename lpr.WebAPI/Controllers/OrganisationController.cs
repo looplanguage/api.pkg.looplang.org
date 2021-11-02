@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lpr.WebAPI.Controllers {
-  [ApiController]
-  [Route("[controller]")]
-  public class OrganisationController : ControllerBase{
+[ApiController]
+[Route("[controller]")]
+public class OrganisationController : ControllerBase {
 
     private readonly IOrganisationService _organisationService;
     public OrganisationController(ILprDbContext dbContext) {
-      _organisationService = new OrganisationService(dbContext);
+        _organisationService = new OrganisationService(dbContext);
     }
 
     /// <summary>
@@ -58,14 +58,14 @@ namespace lpr.WebAPI.Controllers {
         try
         {
             int res = _organisationService.AddOrganisation(Organisation.Name,
-                                                    Organisation.User);
+                      Organisation.User);
             return StatusCode(res);
-        }catch (ApiException ex){
+        } catch (ApiException ex) {
             return StatusCode(ex.ErrorCode, ex.ErrorMessage);
         }
     }
 
     // Source downloading files:
     // https://codeburst.io/download-files-using-web-api-ae1d1025f0a9
-  }
+}
 }
