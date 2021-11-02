@@ -23,6 +23,10 @@ namespace lpr.Logic.Services {
       return await _data.GetTopPackagesAsync(amount);
     }
 
+    public async Task<List<Package>> GetPackagesFromOrganisation(Guid organisationId) {
+      return await _data.GetPackagesFromOrganisation(organisationId);
+    }
+
     public async Task<Package> CreatePackageAsync(Package newPackage) {
       return await _data.CreatePackageAsync(newPackage);
     }

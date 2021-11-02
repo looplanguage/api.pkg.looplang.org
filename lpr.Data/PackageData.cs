@@ -27,6 +27,21 @@ namespace lpr.Data {
       // p.Downloads).ToListAsync();
     }
 
+    public async Task<List<Package>> GetPackagesFromOrganisation(Guid organisationId)
+    {
+      Organisation organisation;
+      try
+      {
+        organisation = await _ctx.Organisation.Include(p => p.Packages).Where(o => o.Id == organisationId).FirstAsync();
+      }
+      catch
+      {
+        throw new ArgumentException("Organisation does not exist.");
+      }
+
+      return organisation.Packages;
+    }
+
     public async Task<Package> CreatePackageAsync(Package newPackage) {
       // Do we also need to create the first 'fallback' version?
       newPackage.Id = Guid.NewGuid();
