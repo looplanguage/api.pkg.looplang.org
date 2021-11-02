@@ -28,7 +28,7 @@ namespace lpr.Data {
     }
 
     public async Task<List<Package>>
-    GetPackagesFromOrganisation(Guid organisationId) {
+    GetPackagesFromOrganisationAsync(Guid organisationId) {
       Organisation organisation;
       try {
         organisation = await _ctx.Organisation.Include(p => p.Packages)

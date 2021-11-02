@@ -48,7 +48,7 @@ namespace lpr.WebAPI.Controllers {
     GetPackagesFromOrganisation(Guid organisationId) {
       try {
         List<Package> output =
-            await _srv.GetPackagesFromOrganisation(organisationId);
+            await _srv.GetPackagesFromOrganisationAsync(organisationId);
         return StatusCode(200, output);
       } catch (ArgumentException ex) {
         return StatusCode(400, new ErrorMessage(ex.Message));
