@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lpr.WebAPI.Controllers {
-  [ApiController]
-  [Route("[controller]")]
-  public class OrganisationController : ControllerBase {
+[ApiController]
+[Route("[controller]")]
+public class OrganisationController : ControllerBase {
 
     private readonly IOrganisationService _organisationService;
     public OrganisationController(ILprDbContext dbContext) {
-      _organisationService = new OrganisationService(dbContext);
+        _organisationService = new OrganisationService(dbContext);
     }
 
     /// <summary>
@@ -29,27 +29,27 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> getOrganisation(string id) {
-      Organisation org = _organisationService.GetOrganisation(id);
+        Organisation org = _organisationService.GetOrganisation(id);
 
-      if (org == null)
-        return StatusCode(500, org);
+        if (org == null)
+            return StatusCode(500, org);
 
-      return StatusCode(200, org);
+        return StatusCode(200, org);
     }
 
     [HttpGet("GetOrganisationsPaginated/{amount}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetOrganisationsPaginated(Guid? fromOrganisationId = null,
-                                                               int amount = 25) {
-      try {
-        List<Organisation> organisations =
-            await _organisationService.GetOrganisationsPaginatedAsync(amount, fromOrganisationId);
+            int amount = 25) {
+        try {
+            List<Organisation> organisations =
+                await _organisationService.GetOrganisationsPaginatedAsync(amount, fromOrganisationId);
 
-        return StatusCode(200, organisations);
-      } catch {
-        return StatusCode(500);
-      }
+            return StatusCode(200, organisations);
+        } catch {
+            return StatusCode(500);
+        }
     }
 
     [HttpPost]
@@ -58,12 +58,12 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult>
     createOrganisation(NewOrganisation newOrganisation) {
-      int res = _organisationService.AddOrganisation(newOrganisation.Name,
-                                                     newOrganisation.User);
-      return StatusCode(res);
+        int res = _organisationService.AddOrganisation(newOrganisation.Name,
+                  newOrganisation.User);
+        return StatusCode(res);
     }
 
     // Source downloading files:
     // https://codeburst.io/download-files-using-web-api-ae1d1025f0a9
-  }
+}
 }
