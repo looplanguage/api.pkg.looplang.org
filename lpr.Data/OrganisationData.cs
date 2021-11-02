@@ -11,28 +11,28 @@ using System.Threading.Tasks;
 
 namespace lpr.Data
 {
-    public class OrganisationData : IOrganisationData
+public class OrganisationData : IOrganisationData
+{
+    private readonly ILprDbContext _DbContext;
+    public void AddOrganisation(Organisation org)
     {
-        private readonly ILprDbContext _DbContext;
-        public void AddOrganisation(Organisation org)
-        {
-            _DbContext.Add(org);
-            _DbContext.SaveChanges();
-        }
-
-        public Organisation GetOrganisationById(string id)
-        {
-            return _DbContext.Organisation.FirstOrDefault(x => x.Id.ToString() == id);
-        }
-
-        public async Task<List<Organisation>> GetOrganisationsPaginatedAsync(int page, int amount)
-        {
-          return await _DbContext.Organisation.Skip(page * amount).Take(amount).ToListAsync();
-        }
-
-        public OrganisationData(ILprDbContext _db)
-        {
-            _DbContext = _db;
-        }
+        _DbContext.Add(org);
+        _DbContext.SaveChanges();
     }
+
+    public Organisation GetOrganisationById(string id)
+    {
+        return _DbContext.Organisation.FirstOrDefault(x => x.Id.ToString() == id);
+    }
+
+    public async Task<List<Organisation>> GetOrganisationsPaginatedAsync(int page, int amount)
+    {
+        return await _DbContext.Organisation.Skip(page * amount).Take(amount).ToListAsync();
+    }
+
+    public OrganisationData(ILprDbContext _db)
+    {
+        _DbContext = _db;
+    }
+}
 }

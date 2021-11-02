@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace lpr.Common.Interfaces.Data
 {
-    public interface IOrganisationData
-    {
-        void AddOrganisation(Organisation org);
-        Task<List<Organisation>> GetOrganisationsPaginatedAsync(int page, int amount);
-        Organisation GetOrganisationById(string id);
-  }
+public interface IOrganisationData
+{
+    void AddOrganisation(Organisation org);
+    Task<List<Organisation>> GetOrganisationsPaginatedAsync(int page, int amount);
+    Organisation GetOrganisationById(string id);
+}
 }
