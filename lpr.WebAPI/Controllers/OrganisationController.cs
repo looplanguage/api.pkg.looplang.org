@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace lpr.WebAPI.Controllers {
   [ApiController]
   [Route("[controller]")]
-  public class OrganisationController : ControllerBase {
+  public class OrganisationController : ControllerBase{
 
     private readonly IOrganisationService _organisationService;
     public OrganisationController(ILprDbContext dbContext) {
@@ -29,23 +29,40 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> getOrganisation(string id) {
-      Organisation org = _organisationService.GetOrganisation(id);
+        try
+        {
+            Organisation org = _organisationService.GetOrganisation(id);
 
-      if (org == null)
-        return StatusCode(500, org);
+            return StatusCode(200, org);
+        }
+        catch (ApiException ex)
+        {
+            return StatusCode(ex.ErrorCode, ex.ErrorMessage);
+        }
 
-      return StatusCode(200, org);
     }
 
+    /// <summary>
+    ///     Creates a new Organisation with a Name and a User
+    /// </summary>
+    /// <param name="newOrganisation"></param>
+    /// <response code="200">Returns Ok</response>
+    /// <response code="401">The User is not authorised</response>
+    /// <response code="500">A Server error has occured.</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult>
-    createOrganisation(NewOrganisation newOrganisation) {
-      int res = _organisationService.AddOrganisation(newOrganisation.Name,
-                                                     newOrganisation.User);
-      return StatusCode(res);
+    createOrganisation(NewOrganisation Organisation) {
+        try
+        {
+            int res = _organisationService.AddOrganisation(Organisation.Name,
+                                                    Organisation.User);
+            return StatusCode(res);
+        }catch (ApiException ex){
+            return StatusCode(ex.ErrorCode, ex.ErrorMessage);
+        }
     }
 
     // Source downloading files:

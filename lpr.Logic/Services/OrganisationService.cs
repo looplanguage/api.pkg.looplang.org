@@ -24,7 +24,13 @@ namespace lpr.Logic.Services
         public int AddOrganisation(string Name, string UserId)
         {
             //TODO check if user exists
-
+            /*
+                if(user == null)
+                    throw new ApiException(401, new ErrorMessage(
+                "User not Found"
+                "The user is not found in the database make sure you have the right ID"
+                )) 
+             */
             Organisation org = new Organisation(Name);
             _organisationData.AddOrganisation(org);
             return 200;
@@ -32,7 +38,14 @@ namespace lpr.Logic.Services
         
         public Organisation GetOrganisation(string OrgId)
         {
-            return _organisationData.GetOrganisationById(OrgId);
+            Organisation org = _organisationData.GetOrganisationById(OrgId);
+
+            if (org == null)
+                throw new ApiException(500, new ErrorMessage(
+                    "Organisation not Found",
+                    "The organisation was not found in the database make sure you have the right ID"));
+            
+            return org;
         }
     }
 }
