@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace lpr.WebAPI.Controllers {
   [ApiController]
   [Route("[controller]")]
-  public class OrganisationController : ControllerBase{
+  public class OrganisationController : ControllerBase {
 
     private readonly IOrganisationService _organisationService;
     public OrganisationController(ILprDbContext dbContext) {
@@ -29,17 +29,13 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> getOrganisation(string id) {
-        try
-        {
-            Organisation org = _organisationService.GetOrganisation(id);
+      try {
+        Organisation org = _organisationService.GetOrganisation(id);
 
-            return StatusCode(200, org);
-        }
-        catch (ApiException ex)
-        {
-            return StatusCode(ex.ErrorCode, ex.ErrorMessage);
-        }
-
+        return StatusCode(200, org);
+      } catch (ApiException ex) {
+        return StatusCode(ex.ErrorCode, ex.ErrorMessage);
+      }
     }
 
     /// <summary>
@@ -55,14 +51,13 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult>
     createOrganisation(NewOrganisation Organisation) {
-        try
-        {
-            int res = _organisationService.AddOrganisation(Organisation.Name,
-                                                    Organisation.User);
-            return StatusCode(res);
-        }catch (ApiException ex){
-            return StatusCode(ex.ErrorCode, ex.ErrorMessage);
-        }
+      try {
+        int res = _organisationService.AddOrganisation(Organisation.Name,
+                                                       Organisation.User);
+        return StatusCode(res);
+      } catch (ApiException ex) {
+        return StatusCode(ex.ErrorCode, ex.ErrorMessage);
+      }
     }
 
     // Source downloading files:
