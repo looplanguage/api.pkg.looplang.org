@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace lpr.Common.Interfaces.Services {
-public interface IOrganisationService {
+  public interface IOrganisationService {
     int AddOrganisation(string Name, string UserId);
-    Task<List<Organisation>> GetOrganisationsPaginatedAsync(int amount,
-            Guid? fromOrganisationId);
+    Task<List<Organisation>>
+    GetOrganisationsPaginatedAsync(int amount, Guid? fromOrganisationId);
     Organisation GetOrganisation(string OrgId);
-}
+  }
 }

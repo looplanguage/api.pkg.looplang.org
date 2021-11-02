@@ -11,28 +11,29 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace lpr.Logic.Services {
-public class OrganisationService : IOrganisationService {
+  public class OrganisationService : IOrganisationService {
     private readonly IOrganisationData _organisationData;
 
     public OrganisationService(ILprDbContext ctx) {
-        _organisationData = new OrganisationData(ctx);
+      _organisationData = new OrganisationData(ctx);
     }
 
     public int AddOrganisation(string Name, string UserId) {
-        // TODO check if user exists
+      // TODO check if user exists
 
-        Organisation org = new Organisation(Name);
-        _organisationData.AddOrganisation(org);
-        return 200;
+      Organisation org = new Organisation(Name);
+      _organisationData.AddOrganisation(org);
+      return 200;
     }
 
     public async Task<List<Organisation>>
     GetOrganisationsPaginatedAsync(int amount, Guid? lastOrganisationId) {
-        return await _organisationData.GetOrganisationsPaginatedAsync(amount, lastOrganisationId);
+      return await _organisationData.GetOrganisationsPaginatedAsync(
+          amount, lastOrganisationId);
     }
 
     public Organisation GetOrganisation(string OrgId) {
-        return _organisationData.GetOrganisationById(OrgId);
+      return _organisationData.GetOrganisationById(OrgId);
     }
-}
+  }
 }
