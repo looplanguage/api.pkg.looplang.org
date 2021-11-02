@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace lpr.Common.Interfaces.Services {
   public interface IOrganisationService {
     int AddOrganisation(string Name, string UserId);
-    Task<List<Organisation>> GetOrganisationsPaginatedAsync(int page,
-                                                            int amount);
+    Task<List<Organisation>> GetOrganisationsPaginatedAsync(int amount,
+                                                            Guid? fromOrganisationId);
     Organisation GetOrganisation(string OrgId);
   }
 }
