@@ -23,21 +23,16 @@ namespace lpr.Data {
 
     public async Task<List<Organisation>>
     GetOrganisationsPaginatedAsync(int amount, Guid? fromOrganisationId) {
-       
-      if(fromOrganisationId == null)
-      {
-        return await _DbContext.Organisation
-        .OrderBy(o => o.Id)
-        .Take(amount)
-        .ToListAsync();
-      }
-      else
-      {
-        return await _DbContext.Organisation
-          .OrderBy(o => o.Id)
-          .Where(o => o.Id.CompareTo((Guid)fromOrganisationId) > 0)
-          .Take(amount)
-          .ToListAsync();
+
+      if (fromOrganisationId == null) {
+        return await _DbContext.Organisation.OrderBy(o => o.Id)
+            .Take(amount)
+            .ToListAsync();
+      } else {
+        return await _DbContext.Organisation.OrderBy(o => o.Id)
+            .Where(o => o.Id.CompareTo((Guid)fromOrganisationId) > 0)
+            .Take(amount)
+            .ToListAsync();
       }
     }
 
