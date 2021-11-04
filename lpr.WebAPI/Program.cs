@@ -28,34 +28,33 @@ builder.Services.AddDbContext<ILprDbContext, LprContext>(options => {
 });
 
 builder.Services.AddScoped<IPackageService, PackageService>();
-builder.Services.AddScoped<IPackageData, PackageData>();
+    builder.Services.AddScoped<IPackageData, PackageData>();
 
-using (var scope = builder.Services.BuildServiceProvider().CreateScope()) {
-  using (var context = scope.ServiceProvider.GetService<ILprDbContext>()) {
-    context.Database.EnsureCreated();
-  }
-}
+    using (var scope = builder.Services.BuildServiceProvider().CreateScope()) {
+      using (var context = scope.ServiceProvider.GetService<ILprDbContext>()) {
+        context.Database.EnsureCreated();
+      }
+    }
 
-builder.Services.AddControllers();
-builder.Services.AddSwaggerGen(c => {
-  c.SwaggerDoc("v1", new() { Title = "lpr.WebAPI", Version = "v1" });
-});
+    builder.Services.AddControllers();
+    builder.Services.AddSwaggerGen(c => {
+      c.SwaggerDoc("v1", new() { Title = "lpr.WebAPI", Version = "v1" });
+    });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-app.UseSwagger();
-app.UseSwaggerUI(c => {
-  c.SwaggerEndpoint("/swagger/v1/swagger.json", "lpr.WebAPI v1");
-  c.RoutePrefix = string.Empty;
-});
+    // Configure the HTTP request pipeline.
+    app.UseSwagger(); app.UseSwaggerUI(c => {
+      c.SwaggerEndpoint("/swagger/v1/swagger.json", "lpr.WebAPI v1");
+      c.RoutePrefix = string.Empty;
+    });
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+    app.UseAuthorization();
 
-app.MapControllers();
+    app.MapControllers();
 
-app.UseMiddleware<GlobalErrorHandler>();
+    app.UseMiddleware<GlobalErrorHandler>();
 
-app.Run();
+    app.Run();

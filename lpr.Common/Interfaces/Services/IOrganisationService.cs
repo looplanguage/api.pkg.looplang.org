@@ -5,11 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lpr.Common.Interfaces.Services
-{
-    public interface IOrganisationService
-    {
-        void AddOrganisation(string Name, string UserId);
-        Organisation GetOrganisation(string OrgId);
-    }
+namespace lpr.Common.Interfaces.Services {
+  public interface IOrganisationService {
+    void AddOrganisation(string Name, string UserId);
+    Organisation GetOrganisation(string OrgId);
+  }
 }

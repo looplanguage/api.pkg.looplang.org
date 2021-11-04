@@ -30,8 +30,8 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> getOrganisation(string id) {
 
-        Organisation org = _organisationService.GetOrganisation(id);
-        return StatusCode(200, org);
+      Organisation org = _organisationService.GetOrganisation(id);
+      return StatusCode(200, org);
     }
 
     /// <summary>
@@ -45,10 +45,12 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> createOrganisation(NewOrganisation Organisation) {
+    public async Task<IActionResult>
+    createOrganisation(NewOrganisation Organisation) {
 
-        _organisationService.AddOrganisation(Organisation.Name, Organisation.User);
-        return StatusCode(200);
+      _organisationService.AddOrganisation(Organisation.Name,
+                                           Organisation.User);
+      return StatusCode(200);
     }
   }
 }
