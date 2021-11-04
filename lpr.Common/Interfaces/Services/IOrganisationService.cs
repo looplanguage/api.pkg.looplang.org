@@ -9,7 +9,7 @@ namespace lpr.Common.Interfaces.Services
 {
     public interface IOrganisationService
     {
-        int AddOrganisation(string Name, string UserId);
+        void AddOrganisation(string Name, string UserId);
         Organisation GetOrganisation(string OrgId);
     }
 }

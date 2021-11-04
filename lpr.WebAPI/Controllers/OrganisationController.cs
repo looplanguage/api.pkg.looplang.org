@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace lpr.WebAPI.Controllers {
   [ApiController]
   [Route("[controller]")]
-  public class OrganisationController : ControllerBase{
+  public class OrganisationController : ControllerBase {
 
     private readonly IOrganisationService _organisationService;
     public OrganisationController(ILprDbContext dbContext) {
@@ -29,8 +29,8 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> getOrganisation(string id) {
-        Organisation org = _organisationService.GetOrganisation(id);
 
+        Organisation org = _organisationService.GetOrganisation(id);
         return StatusCode(200, org);
     }
 
@@ -45,14 +45,10 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult>
-    createOrganisation(NewOrganisation Organisation) {
-        int res = _organisationService.AddOrganisation(Organisation.Name,
-                                                Organisation.User);
-        return StatusCode(res);
-    }
+    public async Task<IActionResult> createOrganisation(NewOrganisation Organisation) {
 
-    // Source downloading files:
-    // https://codeburst.io/download-files-using-web-api-ae1d1025f0a9
+        _organisationService.AddOrganisation(Organisation.Name, Organisation.User);
+        return StatusCode(200);
+    }
   }
 }
