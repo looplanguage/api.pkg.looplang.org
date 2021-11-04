@@ -37,6 +37,23 @@ namespace lpr.WebAPI.Controllers {
       return StatusCode(200, org);
     }
 
+    [HttpGet("GetOrganisationsPaginated/{amount}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult>
+    GetOrganisationsPaginated(Guid? fromOrganisationId = null,
+                              int amount = 25) {
+      try {
+        List<Organisation> organisations =
+            await _organisationService.GetOrganisationsPaginatedAsync(
+                amount, fromOrganisationId);
+
+        return StatusCode(200, organisations);
+      } catch {
+        return StatusCode(500);
+      }
+    }
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
