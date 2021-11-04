@@ -1,4 +1,7 @@
-﻿using lpr.Common.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using lpr.Common.Models;
 
 namespace lpr.Common.Interfaces.Services {
   public interface IPackageService {

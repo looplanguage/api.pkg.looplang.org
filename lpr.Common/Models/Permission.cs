@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace lpr.Common.Models
 {
     public class Permission {
