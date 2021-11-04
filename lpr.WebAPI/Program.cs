@@ -6,6 +6,7 @@ using lpr.Common.Interfaces.Services;
 using lpr.Data;
 using lpr.Data.Contexts;
 using lpr.Logic.Services;
+using lpr.WebAPI.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,5 +55,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<GlobalErrorHandler>();
 
 app.Run();
