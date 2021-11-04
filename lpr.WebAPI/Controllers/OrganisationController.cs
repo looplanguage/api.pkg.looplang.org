@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lpr.WebAPI.Controllers {
-  [ApiController]
-  [Route("[controller]")]
-  public class OrganisationController : ControllerBase {
+[ApiController]
+[Route("[controller]")]
+public class OrganisationController : ControllerBase {
 
     private readonly IOrganisationService _organisationService;
     public OrganisationController(ILprDbContext dbContext) {
-      _organisationService = new OrganisationService(dbContext);
+        _organisationService = new OrganisationService(dbContext);
     }
 
     /// <summary>
@@ -50,5 +50,5 @@ namespace lpr.WebAPI.Controllers {
         _organisationService.AddOrganisation(Organisation.Name, Organisation.User);
         return StatusCode(200);
     }
-  }
+}
 }
