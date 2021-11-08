@@ -34,6 +34,7 @@ namespace lpr.WebAPI.Controllers {
       return StatusCode(200, org);
     }
 
+
     /// <summary>
     ///     Creates a new Organisation with a Name and a User
     /// </summary>
@@ -41,6 +42,25 @@ namespace lpr.WebAPI.Controllers {
     /// <response code="200">Returns Ok</response>
     /// <response code="401">The User is not authorised</response>
     /// <response code="500">A Server error has occured.</response>
+
+    [HttpGet("GetOrganisationsPaginated/{amount}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult>
+    GetOrganisationsPaginated(Guid? fromOrganisationId = null,
+                              int amount = 25) {
+      try {
+        List<Organisation> organisations =
+            await _organisationService.GetOrganisationsPaginatedAsync(
+                amount, fromOrganisationId);
+
+        return StatusCode(200, organisations);
+      } catch {
+        return StatusCode(500);
+      }
+    }
+
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

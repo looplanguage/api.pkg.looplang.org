@@ -18,6 +18,7 @@ namespace lpr.Logic.Services {
       _organisationData = new OrganisationData(ctx);
     }
 
+
     public void AddOrganisation(string Name, string UserId) {
       // TODO check if user exists
       /*
@@ -43,6 +44,16 @@ namespace lpr.Logic.Services {
                 "The organisation was not found in the database make sure you have the right ID"));
 
       return org;
+    }
+
+    public async Task<List<Organisation>>
+    GetOrganisationsPaginatedAsync(int amount, Guid? lastOrganisationId) {
+      return await _organisationData.GetOrganisationsPaginatedAsync(
+          amount, lastOrganisationId);
+    }
+
+    public Organisation GetOrganisation(string OrgId) {
+      return _organisationData.GetOrganisationById(OrgId);
     }
   }
 }
