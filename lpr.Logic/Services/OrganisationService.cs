@@ -50,9 +50,5 @@ namespace lpr.Logic.Services {
       return await _organisationData.GetOrganisationsPaginatedAsync(
           amount, lastOrganisationId);
     }
-
-    public Organisation GetOrganisation(string OrgId) {
-      return _organisationData.GetOrganisationById(OrgId);
-    }
   }
 }
