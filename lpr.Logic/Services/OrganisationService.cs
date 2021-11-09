@@ -18,7 +18,6 @@ namespace lpr.Logic.Services {
       _organisationData = new OrganisationData(ctx);
     }
 
-
     public void AddOrganisation(string Name, string UserId) {
       // TODO check if user exists
       /*

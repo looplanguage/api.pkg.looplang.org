@@ -34,7 +34,6 @@ namespace lpr.WebAPI.Controllers {
       return StatusCode(200, org);
     }
 
-
     /// <summary>
     ///     Creates a new Organisation with a Name and a User
     /// </summary>
@@ -59,7 +58,6 @@ namespace lpr.WebAPI.Controllers {
         return StatusCode(500);
       }
     }
-
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
