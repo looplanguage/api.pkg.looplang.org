@@ -1,27 +1,23 @@
-using AutoFixture;
-using AutoFixture.AutoMoq;
 using lpr.Common.Interfaces.Contexts;
-using NUnit.Framework;
+using lpr.Common.Interfaces.Data;
+using lpr.Common.Interfaces.Services;
+using lpr.Data.Contexts;
+using lpr.Logic.Services;
+using Moq;
+using Xunit;
 
 namespace lpr.Tests
 {
     public class MoqTest
     {
         protected ILprDbContext _db;
-        [SetUp]
-        public void Setup()
-        {
-            Fixture fix = new Fixture();
-            
-            fix.Customize(new AutoMoqCustomization { ConfigureMembers = true });
-            
-            this._db = fix.Create<ILprDbContext>();
-        }
+        public Mock<IOrganisationData> organisationData;
+        public IOrganisationService organisationService;
 
-        [Test]
-        public void Moq_Created()
+        public MoqTest()
         {
-            Assert.IsInstanceOf<ILprDbContext>(this._db);
+            this.organisationData = new Mock<IOrganisationData>();
+            this.organisationService = new OrganisationService(_db);
         }
     }
 }

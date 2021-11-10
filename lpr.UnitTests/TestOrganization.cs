@@ -1,35 +1,33 @@
-using AutoFixture;
-using AutoFixture.AutoMoq;
 using lpr.Common.Interfaces.Contexts;
+using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
-using lpr.Data.Contexts;
+using lpr.Data;
 using lpr.Logic.Services;
-using Microsoft.EntityFrameworkCore;
+using Moq;
 using Xunit;
-using Assert = NUnit.Framework.Assert;
 
 namespace lpr.Tests
 {
     public class TestOrganization
     {
-        protected OrganisationService _organisationService;
+        protected ILprDbContext _db;
+        public Mock<OrganisationData> organisationData;
+        public IOrganisationService organisationService;
         
         public TestOrganization()
         {
-            Fixture fix = new Fixture();
-            
-            fix.Customize(new AutoMoqCustomization { ConfigureMembers = true });
-            
-            this._organisationService = fix.Create<OrganisationService>();
+            this.organisationData = new Mock<OrganisationData>(DatabaseMoq.GetDatabaseContext());
+            this.organisationService = new OrganisationService(this.organisationData.Object);
         }
 
         [Theory]
         [InlineData("Project Delta", "dgdgwt-hxfsgeb-636-hdbwd")]
         public void Create_A_Organization(string name, string userId)
         {
-            var result = this._organisationService.AddOrganisation(name, userId);
-                
-            Assert.IsInstanceOf<Organisation>(result);
+            var organisation = organisationService.AddOrganisation(name, userId);
+            Assert.IsType<Organisation>(organisation);
         }
+        
+        
     }
 }
