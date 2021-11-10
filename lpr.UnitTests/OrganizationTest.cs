@@ -9,40 +9,40 @@ using Moq;
 using Xunit;
 
 namespace lpr.Tests {
-  public class OrganizationTest {
+public class OrganizationTest {
     protected ILprDbContext _db;
     public Mock<OrganisationData> organisationData;
     public IOrganisationService organisationService;
 
     public OrganizationTest() {
-      this.organisationData =
-          new Mock<OrganisationData>(DatabaseMoq.GetDatabaseContext());
-      this.organisationService =
-          new OrganisationService(this.organisationData.Object);
+        this.organisationData =
+            new Mock<OrganisationData>(DatabaseMoq.GetDatabaseContext());
+        this.organisationService =
+            new OrganisationService(this.organisationData.Object);
     }
 
     [Theory]
     [InlineData("Project Delta", "dgdgwt-hxfsgeb-636-hdbwd")]
     public void Create_A_Organization(string name, string userId) {
-      var organisation = organisationService.AddOrganisation(name, userId);
-      Assert.IsType<Organisation>(organisation);
+        var organisation = organisationService.AddOrganisation(name, userId);
+        Assert.IsType<Organisation>(organisation);
     }
 
-    
+
     [Theory]
     public void Get_Multiple_Organizations(int amount, Guid orgId)
     {
-      List<Organisation> list = organisationService.GetOrganisationsPaginatedAsync(amount, orgId);
-      
-      Assert.Same(list.Count, 15);
+        List<Organisation> list = organisationService.GetOrganisationsPaginatedAsync(amount, orgId);
+
+        Assert.Same(list.Count, 15);
     }
 
-  [Theory]
+    [Theory]
     public void Get_Organization(Guid orgId)
     {
-      var org = organisationService.GetOrganisation(orgId);
-      
-      Assert.IsType<Organisation>(org);
+        var org = organisationService.GetOrganisation(orgId);
+
+        Assert.IsType<Organisation>(org);
     }
-  }
+}
 }
