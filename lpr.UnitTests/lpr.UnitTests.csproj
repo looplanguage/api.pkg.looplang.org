@@ -31,4 +31,8 @@
     <Folder Include="IntergartionTests" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="MoqTest.cs" />
+  </ItemGroup>
+
 </Project>
