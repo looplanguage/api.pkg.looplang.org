@@ -51,8 +51,9 @@ namespace lpr.Logic.Services {
 
     public List<Organisation>
     GetOrganisationsPaginatedAsync(int amount, Guid? lastOrganisationId) {
-      return _organisationData.GetOrganisationsPaginatedAsync(
-          amount, lastOrganisationId).Result;
+      return _organisationData
+          .GetOrganisationsPaginatedAsync(amount, lastOrganisationId)
+          .Result;
     }
   }
 }
