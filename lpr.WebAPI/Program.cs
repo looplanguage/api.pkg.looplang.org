@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 string? connectionString =
-  Environment.GetEnvironmentVariable("MariaDB_ConnectionString");
+    Environment.GetEnvironmentVariable("MariaDB_ConnectionString");
 if (connectionString == null) {
   connectionString = "Server=localhost;Database=LPR;User=root;Password=root";
 }

@@ -17,10 +17,9 @@ namespace lpr.Logic.Services {
     public OrganisationService(ILprDbContext ctx) {
       _organisationData = new OrganisationData(ctx);
     }
-        public OrganisationService(IOrganisationData organisationData)
-        {
-            _organisationData = organisationData;
-        }
+    public OrganisationService(IOrganisationData organisationData) {
+      _organisationData = organisationData;
+    }
 
     public Organisation AddOrganisation(string Name, string UserId) {
       // TODO check if user exists
@@ -50,7 +49,8 @@ namespace lpr.Logic.Services {
       return org;
     }
 
-    public async Task<List<Organisation>> GetOrganisationsPaginatedAsync(int amount, Guid? lastOrganisationId) {
+    public async Task<List<Organisation>>
+    GetOrganisationsPaginatedAsync(int amount, Guid? lastOrganisationId) {
       return await _organisationData.GetOrganisationsPaginatedAsync(
           amount, lastOrganisationId);
     }
