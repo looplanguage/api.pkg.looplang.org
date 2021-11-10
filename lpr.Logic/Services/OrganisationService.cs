@@ -11,48 +11,49 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace lpr.Logic.Services {
-public class OrganisationService : IOrganisationService {
+  public class OrganisationService : IOrganisationService {
     private readonly IOrganisationData _organisationData;
 
     public OrganisationService(ILprDbContext ctx) {
-        _organisationData = new OrganisationData(ctx);
+      _organisationData = new OrganisationData(ctx);
     }
     public OrganisationService(IOrganisationData organisationData) {
-        _organisationData = organisationData;
+      _organisationData = organisationData;
     }
 
     public Organisation AddOrganisation(string Name, string UserId) {
-        // TODO check if user exists
-        /*
-            if(user == null)
-                throw new ApiException(401, new ErrorMessage(
-            "User not Found"
-            "The user is not found in the database make sure you have the right
-           ID"
-            ))
-         */
-        Organisation org = new Organisation(Name);
-        _organisationData.AddOrganisation(org);
-        return org;
+      // TODO check if user exists
+      /*
+          if(user == null)
+              throw new ApiException(401, new ErrorMessage(
+          "User not Found"
+          "The user is not found in the database make sure you have the right
+         ID"
+          ))
+       */
+      Organisation org = new Organisation(Name);
+      _organisationData.AddOrganisation(org);
+      return org;
     }
 
     public Organisation GetOrganisation(string OrgId) {
-        Organisation org = _organisationData.GetOrganisationById(OrgId);
+      Organisation org = _organisationData.GetOrganisationById(OrgId);
 
-        if (org == null)
-            throw new ApiException(
-                500,
-                new ErrorMessage(
-                    "Organisation not Found",
-                    "The organisation was not found in the database make sure you have the right ID"));
+      if (org == null)
+        throw new ApiException(
+            500,
+            new ErrorMessage(
+                "Organisation not Found",
+                "The organisation was not found in the database make sure you have the right ID"));
 
-        return org;
+      return org;
     }
 
     public List<Organisation>
     GetOrganisationsPaginatedAsync(int amount, Guid? lastOrganisationId) {
-        return _organisationData.GetOrganisationsPaginatedAsync(
-                   amount, lastOrganisationId).Result;
+      return _organisationData
+          .GetOrganisationsPaginatedAsync(amount, lastOrganisationId)
+          .Result;
     }
-}
+  }
 }
