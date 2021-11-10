@@ -29,12 +29,34 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> getOrganisation(string id) {
+
       Organisation org = _organisationService.GetOrganisation(id);
-
-      if (org == null)
-        return StatusCode(500, org);
-
       return StatusCode(200, org);
+    }
+
+    /// <summary>
+    ///     Creates a new Organisation with a Name and a User
+    /// </summary>
+    /// <param name="newOrganisation"></param>
+    /// <response code="200">Returns Ok</response>
+    /// <response code="401">The User is not authorised</response>
+    /// <response code="500">A Server error has occured.</response>
+
+    [HttpGet("GetOrganisationsPaginated/{amount}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult>
+    GetOrganisationsPaginated(Guid? fromOrganisationId = null,
+                              int amount = 25) {
+      try {
+        List<Organisation> organisations =
+            await _organisationService.GetOrganisationsPaginatedAsync(
+                amount, fromOrganisationId);
+
+        return StatusCode(200, organisations);
+      } catch {
+        return StatusCode(500);
+      }
     }
 
     [HttpPost]
@@ -42,13 +64,11 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult>
-    createOrganisation(NewOrganisation newOrganisation) {
-      int res = _organisationService.AddOrganisation(newOrganisation.Name,
-                                                     newOrganisation.User);
-      return StatusCode(res);
-    }
+    createOrganisation(NewOrganisation Organisation) {
 
-    // Source downloading files:
-    // https://codeburst.io/download-files-using-web-api-ae1d1025f0a9
+      _organisationService.AddOrganisation(Organisation.Name,
+                                           Organisation.User);
+      return StatusCode(200);
+    }
   }
 }
