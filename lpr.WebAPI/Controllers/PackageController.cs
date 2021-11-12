@@ -20,25 +20,17 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPackagesPaginated(int page,
                                                           int amount) {
-      try {
-        List<Package> output =
-            await _srv.GetPackagesPaginatedAsync(page, amount);
-        return StatusCode(200, output);
-      } catch (Exception ex) {
-        return StatusCode(500, new ErrorMessage(ex.Message));
-      }
+      List<Package> output =
+        await _srv.GetPackagesPaginatedAsync(page, amount);
+      return StatusCode(200, output);
     }
 
     [HttpGet("GetTopPackages/{amount}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetTopPackages(int amount) {
-      try {
-        List<Package> output = await _srv.GetTopPackagesAsync(amount);
-        return StatusCode(200, output);
-      } catch (Exception ex) {
-        return StatusCode(500, new ErrorMessage(ex.Message));
-      }
+      List<Package> output = await _srv.GetTopPackagesAsync(amount);
+      return StatusCode(200, output);
     }
 
     [HttpPost("CreatePackage")]
@@ -46,36 +38,23 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult>
     CreatePackage([FromBody] PackageDtoIn newPackage) {
-      try {
-        Package output = await _srv.CreatePackageAsync(new Package(newPackage));
-        return StatusCode(200, output);
-      } catch (Exception ex) {
-        return StatusCode(500, new ErrorMessage(ex.Message));
-      }
+      Package output = await _srv.CreatePackageAsync(new Package(newPackage));
+      return StatusCode(200, output);
     }
 
     [HttpGet("GetFullPackage/{packageId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetFullPackage(Guid packageId) {
-      try {
-        Package output = await _srv.GetFullPackageAsync(packageId);
-        return StatusCode(200, output);
-      } catch (Exception ex) {
-        return StatusCode(500, new ErrorMessage(ex.Message));
-      }
+      Package output = await _srv.GetFullPackageAsync(packageId);
+      return StatusCode(200, output);
     }
 
     [HttpDelete("ArchivePackage/{packageId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ArchivePackage(Guid packageId) {
-      try {
-        Package output = await _srv.ArchivePackageAsync(packageId);
-        return StatusCode(200, output);
-      } catch (Exception ex) {
-        return StatusCode(500, new ErrorMessage(ex.Message));
-      }
+      return StatusCode(200, await _srv.ArchivePackageAsync(packageId));
     }
   }
 }

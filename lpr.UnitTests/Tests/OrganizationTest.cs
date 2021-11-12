@@ -10,7 +10,6 @@ using Xunit;
 
 namespace lpr.Tests {
   public class OrganizationTest {
-    protected ILprDbContext _db;
     public Mock<OrganisationData> organisationData;
     public IOrganisationService organisationService;
 
@@ -29,8 +28,8 @@ namespace lpr.Tests {
     }
 
     [Theory]
-    public void Get_Multiple_Organizations(int amount, Guid orgId) {
-      List<Organisation> list =
+    public async void Get_Multiple_Organizations(int amount, Guid orgId) {
+      List<Organisation> list = await
           organisationService.GetOrganisationsPaginatedAsync(amount, orgId);
 
       Assert.Same(list.Count, 15);

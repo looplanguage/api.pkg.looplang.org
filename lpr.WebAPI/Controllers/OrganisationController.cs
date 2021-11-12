@@ -51,7 +51,7 @@ namespace lpr.WebAPI.Controllers {
     GetOrganisationsPaginated(Guid? fromOrganisationId = null,
                               int amount = 25) {
       try {
-        List<Organisation> organisations =
+        List<Organisation> organisations = await
             _organisationService.GetOrganisationsPaginatedAsync(
                 amount, fromOrganisationId);
 

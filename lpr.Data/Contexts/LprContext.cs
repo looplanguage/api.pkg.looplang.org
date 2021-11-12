@@ -1,12 +1,6 @@
-﻿using lpr.Common.Interfaces;
-using lpr.Common.Interfaces.Contexts;
+﻿using lpr.Common.Interfaces.Contexts;
 using lpr.Common.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Version = lpr.Common.Models.Version;
 
 namespace lpr.Data.Contexts {

@@ -10,7 +10,7 @@ namespace lpr.Common.Interfaces.Services {
 
     Organisation AddOrganisation(string Name, string UserId);
 
-    List<Organisation> GetOrganisationsPaginatedAsync(int amount,
+    Task<List<Organisation>> GetOrganisationsPaginatedAsync(int amount,
                                                       Guid? fromOrganisationId);
 
     Organisation GetOrganisation(string OrgId);

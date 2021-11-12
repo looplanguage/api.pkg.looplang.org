@@ -49,11 +49,10 @@ namespace lpr.Logic.Services {
       return org;
     }
 
-    public List<Organisation>
+    public async Task<List<Organisation>>
     GetOrganisationsPaginatedAsync(int amount, Guid? lastOrganisationId) {
-      return _organisationData
-          .GetOrganisationsPaginatedAsync(amount, lastOrganisationId)
-          .Result;
+      return await _organisationData
+          .GetOrganisationsPaginatedAsync(amount, lastOrganisationId);
     }
   }
 }
