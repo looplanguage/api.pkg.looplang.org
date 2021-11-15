@@ -16,28 +16,32 @@ namespace lpr.Tests {
     }
 
     [Fact]
-    public void Create_A_Organisation()
-    {
+    public void Create_A_Organisation() {
       Organisation TestOrganisation = OrganisationFaker.Faker();
-      this.organisationDataMock.Setup(d => d.AddOrganisation(TestOrganisation)).Returns(TestOrganisation);
-      OrganisationService service = new OrganisationService(this.organisationDataMock.Object);
+      this.organisationDataMock.Setup(d => d.AddOrganisation(TestOrganisation))
+          .Returns(TestOrganisation);
+      OrganisationService service =
+          new OrganisationService(this.organisationDataMock.Object);
 
-      var result = service.AddOrganisation(TestOrganisation);
-      
-      Assert.Equal(result, TestOrganisation);
-      Assert.IsType<Organisation>(result);
+          var result = service.AddOrganisation(TestOrganisation);
+
+          Assert.Equal(result, TestOrganisation);
+          Assert.IsType<Organisation>(result);
     }
-    
+
     [Fact]
     public void Get_Organization() {
       Organisation TestOrganisation = OrganisationFaker.Faker();
-      this.organisationDataMock.Setup(d => d.GetOrganisationById(TestOrganisation.Id)).Returns(TestOrganisation);
-      OrganisationService service = new OrganisationService(this.organisationDataMock.Object);
+      this.organisationDataMock
+          .Setup(d => d.GetOrganisationById(TestOrganisation.Id))
+          .Returns(TestOrganisation);
+      OrganisationService service =
+          new OrganisationService(this.organisationDataMock.Object);
 
-      var result = service.GetOrganisation(TestOrganisation.Id);
-      
-      Assert.Equal(result, TestOrganisation);
-      Assert.IsType<Organisation>(result);
+          var result = service.GetOrganisation(TestOrganisation.Id);
+
+          Assert.Equal(result, TestOrganisation);
+          Assert.IsType<Organisation>(result);
     }
   }
 }

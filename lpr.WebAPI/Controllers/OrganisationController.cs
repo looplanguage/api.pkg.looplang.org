@@ -30,8 +30,7 @@ namespace lpr.WebAPI.Controllers {
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> getOrganisation(string id)
-    {
+    public async Task<IActionResult> getOrganisation(string id) {
       Organisation org = _organisationService.GetOrganisation(Guid.Parse(id));
       return StatusCode(200, org);
     }
@@ -51,8 +50,8 @@ namespace lpr.WebAPI.Controllers {
     GetOrganisationsPaginated(Guid? fromOrganisationId = null,
                               int amount = 25) {
       List<Organisation> organisations =
-        await _organisationService.GetOrganisationsPaginatedAsync(
-          amount, fromOrganisationId);
+          await _organisationService.GetOrganisationsPaginatedAsync(
+              amount, fromOrganisationId);
 
       return StatusCode(200, organisations);
     }
@@ -62,8 +61,7 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult>
-    createOrganisation(NewOrganisation organisation)
-    {
+    createOrganisation(NewOrganisation organisation) {
       Organisation org = new Organisation();
       org.Name = organisation.Name;
       _organisationService.AddOrganisation(org);

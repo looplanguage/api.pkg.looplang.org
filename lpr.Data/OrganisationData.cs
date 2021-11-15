@@ -19,7 +19,8 @@ namespace lpr.Data {
     }
 
     public Organisation GetOrganisationById(Guid id) {
-      return _DbContext.Organisation.FirstOrDefault(x => x.Id.ToString() == id.ToString());
+      return _DbContext.Organisation.FirstOrDefault(x => x.Id.ToString() ==
+                                                         id.ToString());
     }
 
     public async Task<List<Organisation>>
