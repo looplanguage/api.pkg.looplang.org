@@ -11,20 +11,19 @@ namespace lpr.Tests {
   public class PackageTest {
     public Mock<IPackageData> PackageDataMock;
 
-    public PackageTest() {
-      this.PackageDataMock = new Mock<IPackageData>();
-    }
+    public PackageTest() { this.PackageDataMock = new Mock<IPackageData>(); }
 
     [Fact]
-    public async void Get_Package_By_Id()
-    {
+    public async void Get_Package_By_Id() {
       Package TestPackage = PackageFaker.Faker();
-      this.PackageDataMock.Setup(d => d.GetFullPackageAsync(TestPackage.Id)).Returns(Task.FromResult(TestPackage));
+      this.PackageDataMock.Setup(d => d.GetFullPackageAsync(TestPackage.Id))
+          .Returns(Task.FromResult(TestPackage));
 
-      IPackageService packageService = new PackageService(this.PackageDataMock.Object);
-      var pack = await packageService.GetFullPackageAsync(TestPackage.Id);
+      IPackageService packageService =
+          new PackageService(this.PackageDataMock.Object);
+          var pack = await packageService.GetFullPackageAsync(TestPackage.Id);
 
-      Assert.IsType<Package>(pack);
+          Assert.IsType<Package>(pack);
     }
   }
 }
