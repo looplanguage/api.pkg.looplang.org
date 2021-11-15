@@ -1,25 +1,28 @@
-using System;
+using System.Threading.Tasks;
+using lpr.Common.Interfaces.Data;
 using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
-using lpr.Data;
 using lpr.Logic.Services;
+using lpr.Tests.Faker;
 using Moq;
 using Xunit;
 
 namespace lpr.Tests {
   public class PackageTest {
-    public Mock<PackageData> packageData;
-    public IPackageService packageService;
+    public Mock<IPackageData> PackageDataMock;
 
     public PackageTest() {
-      this.packageData =
-          new Mock<PackageData>(DatabaseMoq.GetDatabaseContext());
-      this.packageService = new PackageService(this.packageData.Object);
+      this.PackageDataMock = new Mock<IPackageData>();
     }
 
-    [Theory]
-    public void Get_Package_By_Id(Guid packId) {
-      var pack = this.packageService.GetFullPackageAsync(packId).Result;
+    [Fact]
+    public async void Get_Package_By_Id()
+    {
+      Package TestPackage = PackageFaker.Faker();
+      this.PackageDataMock.Setup(d => d.GetFullPackageAsync(TestPackage.Id)).Returns(Task.FromResult(TestPackage));
+
+      IPackageService packageService = new PackageService(this.PackageDataMock.Object);
+      var pack = await packageService.GetFullPackageAsync(TestPackage.Id);
 
       Assert.IsType<Package>(pack);
     }

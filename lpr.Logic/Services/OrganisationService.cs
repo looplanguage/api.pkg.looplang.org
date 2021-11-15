@@ -21,7 +21,7 @@ namespace lpr.Logic.Services {
       _organisationData = organisationData;
     }
 
-    public Organisation AddOrganisation(string Name, string UserId) {
+    public Organisation AddOrganisation(Organisation org) {
       // TODO check if user exists
       /*
           if(user == null)
@@ -31,12 +31,10 @@ namespace lpr.Logic.Services {
          ID"
           ))
        */
-      Organisation org = new Organisation(Name);
-      _organisationData.AddOrganisation(org);
-      return org;
+      return _organisationData.AddOrganisation(org);
     }
 
-    public Organisation GetOrganisation(string OrgId) {
+    public Organisation GetOrganisation(Guid OrgId) {
       Organisation org = _organisationData.GetOrganisationById(OrgId);
 
       if (org == null)
