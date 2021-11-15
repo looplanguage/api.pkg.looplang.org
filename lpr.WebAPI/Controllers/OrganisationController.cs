@@ -12,13 +12,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lpr.WebAPI.Controllers {
-[ApiController]
-[Route("[controller]")]
-public class OrganisationController : ControllerBase {
+  [ApiController]
+  [Route("[controller]")]
+  public class OrganisationController : ControllerBase {
 
     private readonly IOrganisationService _organisationService;
     public OrganisationController(ILprDbContext dbContext) {
-        _organisationService = new OrganisationService(dbContext);
+      _organisationService = new OrganisationService(dbContext);
     }
 
     /// <summary>
@@ -30,10 +30,9 @@ public class OrganisationController : ControllerBase {
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> getOrganisation(string id)
-    {
-        Organisation org = _organisationService.GetOrganisation(Guid.Parse(id));
-        return StatusCode(200, org);
+    public async Task<IActionResult> getOrganisation(string id) {
+      Organisation org = _organisationService.GetOrganisation(Guid.Parse(id));
+      return StatusCode(200, org);
     }
 
     /// <summary>
@@ -50,11 +49,11 @@ public class OrganisationController : ControllerBase {
     public async Task<IActionResult>
     GetOrganisationsPaginated(Guid? fromOrganisationId = null,
                               int amount = 25) {
-        List<Organisation> organisations =
-            await _organisationService.GetOrganisationsPaginatedAsync(
-                amount, fromOrganisationId);
+      List<Organisation> organisations =
+          await _organisationService.GetOrganisationsPaginatedAsync(
+              amount, fromOrganisationId);
 
-        return StatusCode(200, organisations);
+      return StatusCode(200, organisations);
     }
 
     [HttpPost]
@@ -62,12 +61,11 @@ public class OrganisationController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult>
-    createOrganisation(NewOrganisation organisation)
-    {
-        Organisation org = new Organisation();
-        org.Name = organisation.Name;
-        _organisationService.AddOrganisation(org);
-        return StatusCode(200);
+    createOrganisation(NewOrganisation organisation) {
+      Organisation org = new Organisation();
+      org.Name = organisation.Name;
+      _organisationService.AddOrganisation(org);
+      return StatusCode(200);
     }
-}
+  }
 }
