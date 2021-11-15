@@ -29,8 +29,9 @@ namespace lpr.Tests {
 
     [Theory]
     public async void Get_Multiple_Organizations(int amount, Guid orgId) {
-      List<Organisation> list = await
-          organisationService.GetOrganisationsPaginatedAsync(amount, orgId);
+      List<Organisation> list =
+          await organisationService.GetOrganisationsPaginatedAsync(amount,
+                                                                   orgId);
 
       Assert.Same(list.Count, 15);
     }

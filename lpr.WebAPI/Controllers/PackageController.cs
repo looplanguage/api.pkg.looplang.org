@@ -20,8 +20,7 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetPackagesPaginated(int page,
                                                           int amount) {
-      List<Package> output =
-        await _srv.GetPackagesPaginatedAsync(page, amount);
+      List<Package> output = await _srv.GetPackagesPaginatedAsync(page, amount);
       return StatusCode(200, output);
     }
 
