@@ -17,8 +17,11 @@ namespace lpr.Logic.Services {
     public OrganisationService(ILprDbContext ctx) {
       _organisationData = new OrganisationData(ctx);
     }
+    public OrganisationService(IOrganisationData organisationData) {
+      _organisationData = organisationData;
+    }
 
-    public void AddOrganisation(string Name, string UserId) {
+    public Organisation AddOrganisation(Organisation org) {
       // TODO check if user exists
       /*
           if(user == null)
@@ -28,11 +31,10 @@ namespace lpr.Logic.Services {
          ID"
           ))
        */
-      Organisation org = new Organisation(Name);
-      _organisationData.AddOrganisation(org);
+      return _organisationData.AddOrganisation(org);
     }
 
-    public Organisation GetOrganisation(string OrgId) {
+    public Organisation GetOrganisation(Guid OrgId) {
       Organisation org = _organisationData.GetOrganisationById(OrgId);
 
       if (org == null)

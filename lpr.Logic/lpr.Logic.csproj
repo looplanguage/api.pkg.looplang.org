@@ -11,4 +11,8 @@
     <ProjectReference Include="..\lpr.Data\lpr.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Services\SampleService.cs" />
+  </ItemGroup>
+
 </Project>
