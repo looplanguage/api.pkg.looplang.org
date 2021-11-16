@@ -45,7 +45,7 @@ namespace lpr.Logic.Services
 
             if (githubAuth.ContainsKey("access_token"))
             {
-                Claim[] claims = new Claim[] { new Claim(ClaimTypes.NameIdentifier, githubAuth.Property("access_token").Value.ToString()) };
+                Claim[] claims = new Claim[] { new Claim(ClaimTypes.Authentication, githubAuth.Property("access_token").Value.ToString()) };
                 JWTContainerModel model = new JWTContainerModel()
                 {
                     Claims = claims

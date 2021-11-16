@@ -8,7 +8,7 @@ using lpr.Common.Models;
 using lpr.Data.Contexts;
 using lpr.Logic.Services;
 using lpr.WebAPI.ViewModels;
-using Microsoft.AspNetCore.Http;
+using lpr.WebAPI.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lpr.WebAPI.Controllers {
@@ -27,6 +27,7 @@ namespace lpr.WebAPI.Controllers {
     /// <param name="id">The ID of the searched user.</param>
     /// <response code="200">Returns the found user.</response>
     /// <response code="500">A Server error has occured.</response>
+    [Authenticated]
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

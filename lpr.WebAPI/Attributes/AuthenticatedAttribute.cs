@@ -10,9 +10,9 @@ namespace lpr.WebAPI.Attributes
     {
         public void OnAuthorization(AuthorizationFilterContext filterContext)
         {
-            Account user = (Account)filterContext.HttpContext.Items["User"];
+            string user = (string)filterContext.HttpContext.Items["GitHubAccessToken"];
 
-            Console.WriteLine("test");
+            Console.WriteLine(user);
 
             if (user == null)
                 filterContext.Result = new UnauthorizedObjectResult("user is not authorized") { StatusCode = 403 };

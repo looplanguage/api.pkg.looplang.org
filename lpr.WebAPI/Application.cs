@@ -52,13 +52,14 @@ namespace lpr.WebAPI {
 
       app.UseHttpsRedirection();
 
-          app.UseAuthorization();
+        app.UseAuthorization();
 
-          app.MapControllers();
+        app.MapControllers();
 
-          app.UseMiddleware<GlobalErrorHandler>();
+        app.UseMiddleware<GlobalErrorHandler>();
+        app.UseMiddleware<JWTMiddleware>();
 
-          return app;
+        return app;
     }
 
     public void Run() { this.Build().Run(); }

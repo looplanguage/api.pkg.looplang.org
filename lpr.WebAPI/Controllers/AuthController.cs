@@ -23,8 +23,8 @@ namespace lpr.WebAPI.Controllers {
         [HttpGet("/Login/GitHub/{authenticationKey}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ValidateGitHubAccessToken(string authenticationKey) {
-
+        public async Task<IActionResult> ValidateGitHubAccessToken(string authenticationKey)
+        {
             string output = await _srv.ValidateGitHubAccessToken(authenticationKey);
             return StatusCode(200, output);
         }
