@@ -14,4 +14,5 @@ if (connectionString == null) {
 Application app = new Application(args);
 
 app.AddDatabaseConnection(connectionString);
+app.AddSwagger();
 app.Run();
