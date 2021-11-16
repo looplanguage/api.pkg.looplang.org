@@ -25,13 +25,18 @@ builder.Services.AddDbContext<ILprDbContext, LprContext>(options => {
                    new MariaDbServerVersion(new Version(10, 5, 9)));
 });
 
-builder.Services.AddScoped<IAuthService, AuthService>();
+string githubClientId = Environment.GetEnvironmentVariable("lpr_github_clientid");
+string githubClientSecret = Environment.GetEnvironmentVariable("lpr_github_clientsecret");
+builder.Services.AddScoped<IAuthService, AuthService>(x =>
+    new AuthService(githubClientId,githubClientSecret,x.GetRequiredService<IJWTService>())
+);
 builder.Services.AddScoped<IPackageService, PackageService>();
 builder.Services.AddScoped<IPackageData, PackageData>();
 
 //TODO: move to logic layer or keep it at webAPI?
+string jwtTokenSecret = Environment.GetEnvironmentVariable("lpr_token_secret");
 builder.Services.AddScoped<IJWTService, JWTService>(_ =>
-    new JWTService("dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=")
+    new JWTService(jwtTokenSecret)
 );
 
 using (var scope = builder.Services.BuildServiceProvider().CreateScope()) {

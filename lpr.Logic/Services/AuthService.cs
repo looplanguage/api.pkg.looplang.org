@@ -15,20 +15,21 @@ namespace lpr.Logic.Services
     public class AuthService: IAuthService
     {
         private readonly IJWTService _jwtSrv;
-        //private readonly IAuthData _data;
-        public AuthService(IJWTService jwtService)
+        private readonly string _clientId;
+        private readonly string _clientSecret;
+
+        public AuthService(string clientId, string clientSecret, IJWTService jwtService)
         {
+            _clientId = clientId;
+            _clientSecret = clientSecret;
             _jwtSrv = jwtService;
         }
-
-        public const string clientId = "9f93c7a725e27ee50ed3";
-        public const string clientSecret = "<<secret>>";
 
         public async Task<string> ValidateGitHubAccessToken(string authKey)
         {
             var body = JsonContent.Create(new {
-                client_id = clientId,
-                client_secret = clientSecret,
+                client_id = _clientId,
+                client_secret = _clientSecret,
                 code = authKey
             });
 
