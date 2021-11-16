@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace lpr.Common.Interfaces.Data {
   public interface IOrganisationData {
-    void AddOrganisation(Organisation org);
+    Organisation AddOrganisation(Organisation org);
     Task<List<Organisation>>
     GetOrganisationsPaginatedAsync(int amount, Guid? fromOrganisationId);
-    Organisation GetOrganisationById(string id);
+    Organisation GetOrganisationById(Guid id);
   }
 }

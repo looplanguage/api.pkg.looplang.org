@@ -12,13 +12,15 @@ using System.Threading.Tasks;
 namespace lpr.Data {
   public class OrganisationData : IOrganisationData {
     private readonly ILprDbContext _DbContext;
-    public void AddOrganisation(Organisation org) {
+    public Organisation AddOrganisation(Organisation org) {
       _DbContext.Add(org);
       _DbContext.SaveChanges();
+      return org;
     }
 
-    public Organisation GetOrganisationById(string id) {
-      return _DbContext.Organisation.FirstOrDefault(x => x.Id.ToString() == id);
+    public Organisation GetOrganisationById(Guid id) {
+      return _DbContext.Organisation.FirstOrDefault(x => x.Id.ToString() ==
+                                                         id.ToString());
     }
 
     public async Task<List<Organisation>>

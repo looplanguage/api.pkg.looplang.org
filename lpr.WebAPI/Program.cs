@@ -8,15 +8,12 @@ using lpr.Data.Contexts;
 using lpr.Logic.Services;
 using lpr.WebAPI.Middleware;
 using lpr.WebAPI.Services;
+using lpr.WebAPI;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
-// builder.Services.AddScoped<ISampleService, SampleService>();
 
 builder.Services.AddDbContext<ILprDbContext, LprContext>(options => {
   string? connectionString =

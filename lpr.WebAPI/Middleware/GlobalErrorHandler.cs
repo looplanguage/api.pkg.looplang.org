@@ -1,5 +1,7 @@
 ﻿using lpr.Common.Models;
 using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace lpr.WebAPI.Middleware {
   public class GlobalErrorHandler {
