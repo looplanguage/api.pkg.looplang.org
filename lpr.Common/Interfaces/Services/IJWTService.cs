@@ -1,12 +1,7 @@
 ﻿using lpr.Common.Interfaces.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace lpr.WebAPI.Services
+namespace lpr.Common.Interfaces.Services
 {
     public interface IJWTService
     {

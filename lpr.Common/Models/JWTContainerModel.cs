@@ -13,6 +13,6 @@ namespace lpr.Common.Models
     {
         public string SecurityAlogrithm { get; set; } = SecurityAlgorithms.HmacSha256Signature;
         public int ExpireMinutes { get; set; } = 10080;
-        public Claim[] Claims { get; set; }
+        public Claim[]? Claims { get; set; }
     }
 }

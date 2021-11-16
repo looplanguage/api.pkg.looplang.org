@@ -1,5 +1,5 @@
 ﻿using lpr.Common.Interfaces.Contexts;
-using lpr.WebAPI.Services;
+using lpr.Common.Interfaces.Services;
 using System.Security.Claims;
 
 namespace lpr.WebAPI.Middleware

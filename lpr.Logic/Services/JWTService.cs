@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lpr.WebAPI.Services
+namespace lpr.Logic.Services
 {
     public class JWTService : IJWTService
     {

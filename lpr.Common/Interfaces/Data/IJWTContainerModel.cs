@@ -11,6 +11,6 @@ namespace lpr.Common.Interfaces.Data
     {
         string SecurityAlogrithm { get; set; }
         int ExpireMinutes { get; set; }
-        Claim[] Claims { get; set; }
+        Claim[]? Claims { get; set; }
     }
 }

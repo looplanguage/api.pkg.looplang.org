@@ -7,7 +7,6 @@ using lpr.Data;
 using lpr.Data.Contexts;
 using lpr.Logic.Services;
 using lpr.WebAPI.Middleware;
-using lpr.WebAPI.Services;
 using lpr.WebAPI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +29,9 @@ builder.Services.AddScoped<IPackageService, PackageService>();
 builder.Services.AddScoped<IPackageData, PackageData>();
 
 //TODO: move to logic layer or keep it at webAPI?
-builder.Services.AddScoped<IJWTService, JWTService>(_ => new JWTService("test"));
+builder.Services.AddScoped<IJWTService, JWTService>(_ =>
+    new JWTService("dGhpcyBpcyBteSBjdXN0b20gU2VjcmV0IGtleSBmb3IgYXV0aG5ldGljYXRpb24=")
+);
 
 using (var scope = builder.Services.BuildServiceProvider().CreateScope()) {
     using (var context = scope.ServiceProvider.GetService<ILprDbContext>()) {

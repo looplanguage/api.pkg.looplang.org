@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using lpr.Common.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 
 namespace lpr.WebAPI.Attributes
@@ -8,12 +10,12 @@ namespace lpr.WebAPI.Attributes
     {
         public void OnAuthorization(AuthorizationFilterContext filterContext)
         {
-            //UserModel user = (UserModel)filterContext.HttpContext.Items["User"];
+            Account user = (Account)filterContext.HttpContext.Items["User"];
 
             Console.WriteLine("test");
 
-            //if (user == null)
-             //   filterContext.Result = new UnauthorizedObjectResult("user is not authorized") { StatusCode = 403 };
+            if (user == null)
+                filterContext.Result = new UnauthorizedObjectResult("user is not authorized") { StatusCode = 403 };
         }
     }
 }

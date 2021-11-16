@@ -10,22 +10,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lpr.WebAPI.Controllers {
-  [ApiController]
-  [Route("[controller]")]
-  public class AuthController : ControllerBase {
+    [ApiController]
+    [Route("[controller]")]
+    public class AuthController : ControllerBase {
 
-    private readonly IAuthService _srv;
-    public AuthController(IAuthService authService) {
-        _srv = authService;
+        private readonly IAuthService _srv;
+        public AuthController(IAuthService authService)
+        {
+            _srv = authService;
+        }
+
+        [HttpGet("/Login/GitHub/{authenticationKey}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ValidateGitHubAccessToken(string authenticationKey) {
+
+            string output = await _srv.ValidateGitHubAccessToken(authenticationKey);
+            return StatusCode(200, output);
+        }
     }
-
-    [HttpGet("{token}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> ValidateGitHubAccessToken(string token) {
-
-      string output = await _srv.ValidateGitHubAccessToken(token);
-      return StatusCode(200, output);
-    }
-  }
 }
