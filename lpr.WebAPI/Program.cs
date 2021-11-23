@@ -10,7 +10,7 @@ if (connectionString == null)
 string? githubClientId = Environment.GetEnvironmentVariable("lpr_github_clientid");
 string? githubClientSecret = Environment.GetEnvironmentVariable("lpr_github_clientsecret");
 
-string? jwtTokenSecret = Environment.GetEnvironmentVariable("lpr_token_secret");
+string? jwtTokenSecret = Environment.GetEnvironmentVariable("lpr_token_secret");    
 
 string?[] secrets = {connectionString,githubClientId,githubClientSecret,jwtTokenSecret};
 
@@ -19,6 +19,7 @@ if(secrets.Any(s => s == null))
 
 var app = new Application(args);
 
+app.ConfigureCORS();
 app.AddDatabaseConnection(connectionString);
 app.AddGitHubOauth(githubClientId, githubClientSecret);
 app.AddJwtService(jwtTokenSecret);

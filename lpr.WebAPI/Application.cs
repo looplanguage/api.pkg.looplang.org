@@ -75,6 +75,21 @@ namespace lpr.WebAPI {
         });
     }
 
+    public void ConfigureCORS()
+    {
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: "Localhost",
+                builder =>
+                {
+                    builder.WithOrigins(
+                        "http://localhost:8080",
+                        "https://localhost:8080"
+                        );
+                });
+        });
+    }
+
     protected WebApplication Build() {
         WebApplication app = builder.Build();
 
@@ -83,6 +98,8 @@ namespace lpr.WebAPI {
           c.SwaggerEndpoint("/swagger/v1/swagger.json", "lpr.WebAPI v1");
           c.RoutePrefix = string.Empty;
         });
+
+        app.UseCors("Localhost");
 
         app.UseHttpsRedirection();
 

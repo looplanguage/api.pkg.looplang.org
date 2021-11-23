@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json;
+using System.Threading.Tasks;
 using lpr.Common.Interfaces;
 using lpr.Common.Interfaces.Contexts;
 using lpr.Common.Interfaces.Services;
@@ -26,7 +27,8 @@ namespace lpr.WebAPI.Controllers {
         public async Task<IActionResult> ValidateGitHubAccessToken(string authenticationKey)
         {
             string output = await _srv.ValidateGitHubAccessToken(authenticationKey);
-            return StatusCode(200, output);
+            string JsonOutput =  JsonSerializer.Serialize(output); 
+            return StatusCode(200, JsonOutput);
         }
     }
 }
