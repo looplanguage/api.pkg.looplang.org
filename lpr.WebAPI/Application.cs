@@ -36,8 +36,12 @@ namespace lpr.WebAPI {
 
     public void AddGitHubOauth(string clientId, string clientSecret)
     {
+        builder.Services.AddScoped<IAccountData, AccountData>();
         builder.Services.AddScoped<IAuthService, AuthService>(x =>
-            new AuthService(clientId,clientSecret,x.GetRequiredService<IJWTService>())
+            new AuthService(clientId,clientSecret,x.GetRequiredService<IJWTService>(),x.GetRequiredService<IAccountData>())
+        );
+        builder.Services.AddScoped<IGitHubService, GitHubService>(x =>
+            new GitHubService(clientId,clientSecret,x.GetRequiredService<IAccountData>())
         );
     }
 

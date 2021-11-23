@@ -14,15 +14,17 @@ namespace lpr.Logic.Services
 {
     public class AuthService: IAuthService
     {
-        private readonly IJWTService _jwtSrv;
         private readonly string _clientId;
         private readonly string _clientSecret;
+        private readonly IJWTService _jwtSrv;
+        private readonly IAccountData _accountData;//TODO: yet unused!!!!!
 
-        public AuthService(string clientId, string clientSecret, IJWTService jwtService)
+        public AuthService(string clientId, string clientSecret, IJWTService jwtService, IAccountData accountData)
         {
             _clientId = clientId;
             _clientSecret = clientSecret;
             _jwtSrv = jwtService;
+            _accountData = accountData;
         }
 
         public async Task<string> ValidateGitHubAccessToken(string authKey)
@@ -35,7 +37,7 @@ namespace lpr.Logic.Services
 
             //https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://github.com");
+            client.BaseAddress = new Uri("https://github.com");//TODO: don't hard-code
 
             client.DefaultRequestHeaders.UserAgent.Add(new System.Net.Http.Headers.ProductInfoHeaderValue("LPR", "1.0"));
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -46,16 +48,23 @@ namespace lpr.Logic.Services
 
             if (githubAuth.ContainsKey("access_token"))
             {
-                Claim[] claims = new Claim[] { new Claim(ClaimTypes.Authentication, githubAuth.Property("access_token").Value.ToString()) };
-                JWTContainerModel model = new JWTContainerModel()
-                {
-                    Claims = claims
-                };
-                string token = _jwtSrv.GenerateToken(model);
-                return token;
+                string accessToken = githubAuth.Property("access_token").Value.ToString();
+                string jwt = GenerateJWT(new Claim(ClaimTypes.Authentication, accessToken));
+                //string jwt = _jwtSrv.GenerateToken(model);
+                return jwt;
             }
             else
                 throw new Exception("Not a valid authKey has been given, is used or expired.");
+        }
+
+        public string GenerateJWT(Claim claim)//TODO: this may be temporarily.
+        {
+          Claim[] claims = new Claim[] { claim };
+          JWTContainerModel model = new JWTContainerModel()
+          {
+              Claims = claims
+          };
+          return _jwtSrv.GenerateToken(model);
         }
     }
 }
