@@ -1,16 +1,9 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using lpr.Common.Interfaces;
-using lpr.Common.Interfaces.Contexts;
+using System.Text.Json;
 using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
-using lpr.Data.Contexts;
-using lpr.Logic.Services;
-using lpr.WebAPI.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 
 namespace lpr.WebAPI.Controllers {
     [ApiController]
@@ -43,11 +36,15 @@ namespace lpr.WebAPI.Controllers {
             Account account = await _githubSrv.GetRegisteredUser(githubUser.Id);
             
             if(account != null)//Login:
-                return StatusCode(200, _srv.GenerateJWT(new Claim(ClaimTypes.Authentication, account.Id.ToString())));
+            {
+                string JsonOutput =  JsonSerializer.Serialize(_srv.GenerateJWT(new Claim(ClaimTypes.Authentication, account.Id.ToString()))); 
+                return StatusCode(200, JsonOutput);
+            }
             else//Register
             {
                 account = await _githubSrv.Register(githubUser);
-                return StatusCode(201, _srv.GenerateJWT(new Claim(ClaimTypes.Authentication, account.Id.ToString())));
+                string JsonOutput =  JsonSerializer.Serialize(_srv.GenerateJWT(new Claim(ClaimTypes.Authentication, account.Id.ToString()))); 
+                return StatusCode(201, JsonOutput);
             }
         }
     }
