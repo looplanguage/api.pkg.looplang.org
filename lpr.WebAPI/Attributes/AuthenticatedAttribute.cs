@@ -10,7 +10,7 @@ namespace lpr.WebAPI.Attributes
     {
         public void OnAuthorization(AuthorizationFilterContext filterContext)
         {
-            string user = (string)filterContext.HttpContext.Items["GitHubAccessToken"];
+            string user = (string)filterContext.HttpContext.Items["AccountId"];
 
             Console.WriteLine(user);
 

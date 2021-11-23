@@ -21,9 +21,9 @@ namespace lpr.WebAPI.Middleware
                 if (jwtService.IsTokenValid(token))
                 {
                     IEnumerable<Claim> claims = jwtService.GetTokenClaims(token);
-                    string githubId = claims.FirstOrDefault(e => e.Type.Equals(ClaimTypes.Authentication)).Value;
+                    string accountId = claims.FirstOrDefault(e => e.Type.Equals(ClaimTypes.Authentication)).Value;
 
-                    context.Items["GitHubAccessToken"] = githubId;
+                    context.Items["AccountId"] = accountId;
                     //context.Items["GitHubAccessToken"] = dbContext.Account.FirstOrDefault(x => x.GithubId == githubId);
                 }
             }
