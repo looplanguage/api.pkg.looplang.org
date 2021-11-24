@@ -9,7 +9,7 @@ namespace lpr.Common.Models
 {
     public class Account
     {
-        public Guid GithubId { get; set; }
+        public int GithubId { get; set; }
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string? Logo { get; set; }
