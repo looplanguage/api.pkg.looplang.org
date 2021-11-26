@@ -22,11 +22,6 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1.7.2
-        with:
-          dotnet-version: '6.0.x'
-          include-prerelease: true
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
@@ -37,6 +32,7 @@ jobs:
     needs: [ setup, build ]
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v2
       - name: Test
         run: dotnet test --verbosity normal
         
