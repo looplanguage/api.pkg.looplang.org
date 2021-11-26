@@ -34,7 +34,7 @@ jobs:
         run: dotnet test
         
   docker:
-    name: Docker Tests
+    name: Docker build
     runs-on: ubuntu-20.04
     needs: [ build, unit-test ]
     steps:
