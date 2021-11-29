@@ -4,6 +4,10 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+RUN dotnet dev-certs https --clean
+RUN dotnet dev-certs https -ep ./dev_cert.pfx -p Looplang
+
 WORKDIR /src
 COPY ["lpr.WebAPI/lpr.WebAPI.csproj", "lpr.WebAPI/"]
 RUN dotnet restore "lpr.WebAPI/lpr.WebAPI.csproj"
