@@ -20,8 +20,10 @@ services:
     depends_on:
       - db
     command:
+      - mkdir conf.d
       - dotnet dev-certs https --clean --quiet
-      - dotnet dev-certs https -ep ./dev_cert.pfx -p Looplang
+      - dotnet dev-certs https -ep ./conf.d/https/dev_cert.pfx -p Looplang
+      - dotnet dev-certs https --trust
     volumes:
       - ./conf.d/https/:/https/
   db:
