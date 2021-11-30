@@ -11,8 +11,9 @@ namespace lpr.Logic
     {
         public static bool ValidateName(string name)
         {
-            Regex regex = new Regex(@"^[A-Za-z\-]*$");
+            Regex regex = new Regex(@"^[a-zA-Z]+-?[a-zA-Z]+$");
             Match match = regex.Match(name);
+
             if (match.Success)
                 return true;
             return false;
