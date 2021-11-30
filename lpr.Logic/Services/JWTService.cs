@@ -14,9 +14,12 @@ namespace lpr.Logic.Services
     public class JWTService : IJWTService
     {
         public string SecretKey { get; set; }
-        public JWTService(string secretKey)
+        public JWTService(string? secretKey)
         {
-            SecretKey = secretKey;
+            if(secretKey == null)
+                SecretKey = GenerateRandomBase64String();
+            else
+                SecretKey = secretKey;
         }
 
         public string GenerateToken(IJWTContainerModel model)   
@@ -89,6 +92,14 @@ namespace lpr.Logic.Services
                 ValidateAudience = false,
                 IssuerSigningKey = GetSymmertricSecurityKey()
             };
+        }
+
+        private string GenerateRandomBase64String() {
+            Random random = new Random();
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(
+                new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 30)
+                    .Select(s => s[random.Next(s.Length)]).ToArray()));
+            return System.Convert.ToBase64String(plainTextBytes);
         }
     }
 }
