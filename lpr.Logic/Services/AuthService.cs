@@ -14,12 +14,12 @@ namespace lpr.Logic.Services
 {
     public class AuthService: IAuthService
     {
-        private readonly string _clientId;
-        private readonly string _clientSecret;
+        private readonly string? _clientId;
+        private readonly string? _clientSecret;
         private readonly IJWTService _jwtSrv;
         private readonly IAccountData _accountData;//TODO: yet unused!!!!!
 
-        public AuthService(string clientId, string clientSecret, IJWTService jwtService, IAccountData accountData)
+        public AuthService(string? clientId, string? clientSecret, IJWTService jwtService, IAccountData accountData)
         {
             _clientId = clientId;
             _clientSecret = clientSecret;
@@ -29,6 +29,9 @@ namespace lpr.Logic.Services
 
         public async Task<string> ValidateGitHubAccessToken(string authKey)
         {
+            if((new List<string?>{_clientId,_clientSecret}).Any(id => id == null))
+                throw new Exception("This method cannot be used because it's missing GitHub related secret values.");
+
             var body = JsonContent.Create(new {
                 client_id = _clientId,
                 client_secret = _clientSecret,

@@ -7,11 +7,11 @@ namespace lpr.Logic.Services
 {
     public class GitHubService: IGitHubService
     {
-        private readonly string _clientId;
-        private readonly string _clientSecret;
+        private readonly string? _clientId;//Unused
+        private readonly string? _clientSecret;//Unused
         private readonly IAccountData _accountData;
 
-        public GitHubService(string clientId, string clientSecret, IAccountData accountData)
+        public GitHubService(string? clientId, string? clientSecret, IAccountData accountData)
         {
             _clientId = clientId;
             _clientSecret = clientSecret;
