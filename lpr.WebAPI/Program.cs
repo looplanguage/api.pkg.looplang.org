@@ -10,12 +10,7 @@ if (connectionString == null)
 string? githubClientId = Environment.GetEnvironmentVariable("lpr_github_clientid");
 string? githubClientSecret = Environment.GetEnvironmentVariable("lpr_github_clientsecret");
 
-string? jwtTokenSecret = Environment.GetEnvironmentVariable("lpr_token_secret");    
-
-string?[] secrets = {connectionString,githubClientId,githubClientSecret,jwtTokenSecret};
-
-if(secrets.Any(s => s == null))
-    throw new Exception("Some configuration is null.");
+string? jwtTokenSecret = Environment.GetEnvironmentVariable("lpr_token_secret");
 
 var app = new Application(args);
 
