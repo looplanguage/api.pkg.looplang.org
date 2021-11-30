@@ -1,14 +1,10 @@
 ﻿using lpr.Common.Interfaces.Services;
 using lpr.Common.Interfaces.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 using lpr.Common.Models;
 using System.Security.Claims;
 using Newtonsoft.Json.Linq;
+using lpr.Common.Dtos.In;
 
 namespace lpr.Logic.Services
 {
@@ -17,7 +13,7 @@ namespace lpr.Logic.Services
         private readonly string _clientId;
         private readonly string _clientSecret;
         private readonly IJWTService _jwtSrv;
-        private readonly IAccountData _accountData;//TODO: yet unused!!!!!
+        private readonly IAccountData _accountData;
 
         public AuthService(string clientId, string clientSecret, IJWTService jwtService, IAccountData accountData)
         {
@@ -25,6 +21,22 @@ namespace lpr.Logic.Services
             _clientSecret = clientSecret;
             _jwtSrv = jwtService;
             _accountData = accountData;
+        }
+
+        public async Task<Account> GetAccountById(Guid accountId)
+        {
+            return await _accountData.GetAccountById(accountId);
+        }
+
+        public async Task<Account> UpdateAccount(UpdateAccountDtoIn account, Guid accountId)
+        {
+            Account currentAccount = await GetAccountById(accountId);
+
+            currentAccount.Name = account.Name ?? currentAccount.Name;
+            currentAccount.Logo = account.Logo ?? currentAccount.Logo;
+
+            await _accountData.UpdateAccount(currentAccount);
+            return currentAccount;
         }
 
         public async Task<string> ValidateGitHubAccessToken(string authKey)
@@ -66,5 +78,5 @@ namespace lpr.Logic.Services
           };
           return _jwtSrv.GenerateToken(model);
         }
-    }
+  }
 }
