@@ -50,7 +50,7 @@ namespace lpr.Logic.Services
                 ClaimsPrincipal tokenValid = jwtSecurityTokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken validatedToken);
                 return tokenValid.Claims;
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }

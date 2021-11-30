@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 string? connectionString =
     Environment.GetEnvironmentVariable("MariaDB_ConnectionString");
 if (connectionString == null)
-  connectionString = "Server=localhost;Database=LPR;User=root;Password=root";
+  connectionString = "Server=localhost;Database=LPR;User=root;Password=root; Port=3360;";
 
 string? githubClientId = Environment.GetEnvironmentVariable("lpr_github_clientid");
 string? githubClientSecret = Environment.GetEnvironmentVariable("lpr_github_clientsecret");

@@ -22,6 +22,7 @@ namespace lpr.Common.Models
             Name = _name;
             Id = Guid.NewGuid();
             Created = DateTime.UtcNow;
+            Packages = new List<Package>();
         }
 
         public Organisation(){}

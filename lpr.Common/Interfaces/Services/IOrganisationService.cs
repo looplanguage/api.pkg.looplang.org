@@ -13,6 +13,6 @@ namespace lpr.Common.Interfaces.Services {
     Task<List<Organisation>>
     GetOrganisationsPaginatedAsync(int amount, Guid? fromOrganisationId);
 
-    Organisation GetOrganisation(Guid OrgId);
+    Organisation? GetOrganisation(Guid OrgId);
   }
 }

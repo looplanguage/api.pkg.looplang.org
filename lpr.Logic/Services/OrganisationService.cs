@@ -34,17 +34,9 @@ namespace lpr.Logic.Services {
       return _organisationData.AddOrganisation(org);
     }
 
-    public Organisation GetOrganisation(Guid OrgId) {
-      Organisation org = _organisationData.GetOrganisationById(OrgId);
+    public Organisation? GetOrganisation(Guid OrgId) {
 
-      if (org == null)
-        throw new ApiException(
-            500,
-            new ErrorMessage(
-                "Organisation not Found",
-                "The organisation was not found in the database make sure you have the right ID"));
-
-      return org;
+      return _organisationData.GetOrganisationById(OrgId);
     }
 
     public async Task<List<Organisation>>

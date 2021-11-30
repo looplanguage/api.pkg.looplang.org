@@ -61,8 +61,7 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult>
-    createOrganisation(NewOrganisation organisation) {
+    public async Task<IActionResult> createOrganisation(NewOrganisation organisation) {
       Organisation org = new Organisation();
       org.Name = organisation.Name;
       _organisationService.AddOrganisation(org);
