@@ -19,13 +19,8 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev_cert.pfx
     depends_on:
       - db
-    command:
-      - mkdir conf.d
-      - dotnet dev-certs https --clean --quiet
-      - dotnet dev-certs https -ep ./conf.d/https/dev_cert.pfx -p Looplang
-      - dotnet dev-certs https --trust
     volumes:
-      - ./conf.d/https/:/https/
+      - ./conf/https/:/https/
   db:
     container_name: Database
     image: mariadb:10.5.9
