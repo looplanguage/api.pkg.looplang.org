@@ -10,6 +10,6 @@ namespace lpr.Common.Interfaces.Data {
     Organisation AddOrganisation(Organisation org);
     Task<List<Organisation>>
     GetOrganisationsPaginatedAsync(int amount, Guid? fromOrganisationId);
-    Organisation GetOrganisationById(Guid id);
+    Organisation? GetOrganisationById(Guid id);
   }
 }

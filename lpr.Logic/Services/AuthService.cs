@@ -3,8 +3,8 @@ using lpr.Common.Interfaces.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
 using System.Threading.Tasks;
 using lpr.Common.Models;
 using System.Security.Claims;
@@ -51,13 +51,17 @@ namespace lpr.Logic.Services
 
             if (githubAuth.ContainsKey("access_token"))
             {
-                string accessToken = githubAuth.Property("access_token").Value.ToString();
-                string jwt = GenerateJWT(new Claim(ClaimTypes.Authentication, accessToken));
-                //string jwt = _jwtSrv.GenerateToken(model);
-                return jwt;
+                var property = githubAuth.Property("access_token");
+                if (property != null)
+                {
+                    string accessToken = property.Value.ToString();
+                    string jwt = GenerateJWT(new Claim(ClaimTypes.Authentication, accessToken));
+                    //string jwt = _jwtSrv.GenerateToken(model);
+                    return jwt;
+                }
+    
             }
-            else
-                throw new Exception("Not a valid authKey has been given, is used or expired.");
+            throw new Exception("Not a valid authKey has been given, is used or expired.");
         }
 
         public string GenerateJWT(Claim claim)//TODO: this may be temporarily.

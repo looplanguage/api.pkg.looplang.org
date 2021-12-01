@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
 using lpr.Common.Interfaces.Data;
 using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
 using Octokit;
+using Account = lpr.Common.Models.Account;
 
 namespace lpr.Logic.Services
 {
@@ -32,14 +34,14 @@ namespace lpr.Logic.Services
             };
         }
 
-        public async Task<lpr.Common.Models.Account> GetRegisteredUser(int githubId)
+        public async Task<Account> GetRegisteredUser(int githubId)
         {
             return await _accountData.GetAccountLinkedToGithub(githubId);
         }
 
-        public async Task<lpr.Common.Models.Account> Register(GithubUser githubUser)
+        public Account Register(GithubUser githubUser)
         {
-            return await _accountData.RegisterGithubAccount(githubUser);
+            return _accountData.RegisterGithubAccount(githubUser);
         }
     }
 }

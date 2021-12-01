@@ -1,8 +1,11 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
+using System.Threading.Tasks;
 using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lpr.WebAPI.Controllers {
@@ -42,7 +45,7 @@ namespace lpr.WebAPI.Controllers {
             }
             else//Register
             {
-                account = await _githubSrv.Register(githubUser);
+                account = _githubSrv.Register(githubUser);
                 string JsonOutput =  JsonSerializer.Serialize(_srv.GenerateJWT(new Claim(ClaimTypes.Authentication, account.Id.ToString()))); 
                 return StatusCode(201, JsonOutput);
             }

@@ -1,10 +1,12 @@
 ﻿using lpr.Common.Interfaces.Contexts;
 using lpr.Common.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Version = lpr.Common.Models.Version;
 
 namespace lpr.Data.Contexts {
-  public class LprContext : DbContext, ILprDbContext {
+  public class LprContext : DbContext, ILprDbContext
+  {
     public DbSet<Account> Account { get; set; }
     public DbSet<Organisation> Organisation { get; set; }
     public DbSet<Package> Package { get; set; }
