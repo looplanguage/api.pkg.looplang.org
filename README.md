@@ -14,7 +14,7 @@ The Loop language is a new programming language for data science and AI. Loop us
 
 This repository contains the backend logic and API for the package manager. 
 
-# Gettings started
+# Gettings started (Windows)
 
 ## Prerequisites
 * Git
@@ -22,7 +22,7 @@ This repository contains the backend logic and API for the package manager.
 * Docker compose (Comes pre-installed with Docker Desktop)
 ## Steps
 1. Clone this repository, using the following command: ``git clone https://github.com/looplanguage/api.pkg.looplang.org``
-2. Browse to the folder of the repository
+2. Browse to the folder of the repository: ``cd api.looplang.org``
 3. Run the command: ``docker-compose up``
 4. After a short while, the services should be running 
 5. When you want to stop the services from running, run the command: ``docker-compose down``
