@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace lpr.Common.Models
 {
-    public class Participant
+    public class OrganisationMember
     {
         public Guid Id {  get; set; }
         public Organisation? Organisation { get; set; }
-        public Package? Package {  get; set; }
+        public Account? Account { get; set; }
         public DateTime Created {  get; set; }
     }
 }

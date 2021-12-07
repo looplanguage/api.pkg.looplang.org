@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using lpr.Common;
 using lpr.Common.Interfaces.Data;
-using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
 using lpr.Logic.Services;
-using lpr.Tests.Faker;
 using Moq;
 using Xunit;
 
@@ -16,8 +14,9 @@ namespace lpr.Tests {
     }
 
     [Fact]
-    public void Create_A_Organisation() {
-      Organisation TestOrganisation = OrganisationFaker.Faker();
+    public void Create_A_Organisation()
+    {
+        Organisation TestOrganisation = LoopFaker.Organisation();
       this.organisationDataMock.Setup(d => d.AddOrganisation(TestOrganisation))
           .Returns(TestOrganisation);
       OrganisationService service =
@@ -30,8 +29,9 @@ namespace lpr.Tests {
     }
 
     [Fact]
-    public void Get_Organization() {
-      Organisation TestOrganisation = OrganisationFaker.Faker();
+    public void Get_Organization()
+    {
+        Organisation TestOrganisation = LoopFaker.Organisation();
       this.organisationDataMock
           .Setup(d => d.GetOrganisationById(TestOrganisation.Id))
           .Returns(TestOrganisation);

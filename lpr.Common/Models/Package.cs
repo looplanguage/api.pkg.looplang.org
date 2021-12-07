@@ -35,6 +35,8 @@ namespace lpr.Common.Models {
 
     public bool Archived { get; set; }
 
+    public Organisation? Organisation { get; set; }
+
     public Package() : base()
     {
       Versions = new List<Version>();
