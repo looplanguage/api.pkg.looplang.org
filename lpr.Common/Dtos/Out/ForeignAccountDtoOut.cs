@@ -15,7 +15,7 @@ namespace lpr.Common.Dtos.Out
         {
             GithubId = account.AccountIdentifiers.GithubId;
             Id = account.Id;
-            Name = account.Name;
+            Name = account.Name ?? string.Empty;
             Logo = account.Logo;
             Created = account.Created;
         }
