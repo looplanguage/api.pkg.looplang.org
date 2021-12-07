@@ -37,8 +37,10 @@ namespace lpr.Logic.Services
         {
             Account currentAccount = await GetAccountById(accountId);
 
-            currentAccount.Name = account.Name ?? currentAccount.Name;
-            currentAccount.Logo = account.Logo ?? currentAccount.Logo;
+            if(!string.IsNullOrEmpty(account.Name))
+                currentAccount.Name = account.Name;
+            if(!string.IsNullOrEmpty(account.Logo))
+                currentAccount.Logo = account.Logo;
 
             await _accountData.UpdateAccount(currentAccount);
             return currentAccount;
