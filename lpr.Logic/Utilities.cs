@@ -18,5 +18,21 @@ namespace lpr.Logic
                 return true;
             return false;
         }
+
+
+        public static string GenerateRandomValidString(int min, int max)
+        {
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            Random random = new Random();
+            int length = random.Next(min, max);
+            
+            string str = "";
+            for (int i = 0; i < length; i++)
+            {
+                str += chars[random.Next(chars.Length)];
+            }
+            return str;
+        }
     }
+
 }

@@ -33,7 +33,7 @@ namespace lpr.Logic.Services {
 
             if (!Utilities.ValidateName(newPackage.Name))
                 throw new ApiException(400, new ErrorMessage("Package name not allowed", "The package name cannot contain numbers, or special characters"));
-                
+
             if (newPackage.Id == Guid.Empty || newPackage.Created == DateTime.MinValue)
                 throw new ApiException(500, new ErrorMessage("Package Created Incorrecly", "the package was not created in the correct way"));
 
@@ -47,7 +47,13 @@ namespace lpr.Logic.Services {
         }
 
         public async Task<Package> ArchivePackageAsync(Guid packageId) {
-            return await _data.ArchivePackageAsync(packageId);
+            Package package = await _data.GetFullPackageAsync(packageId);
+
+            if (package == null)
+                throw new ApiException(404, 
+                    new ErrorMessage("Package not found", "The package you were trying to archive was not found"));
+
+            return await _data.ArchivePackageAsync(package);
         }
     }
 }
