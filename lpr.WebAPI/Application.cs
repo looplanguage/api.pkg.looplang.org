@@ -33,7 +33,11 @@ namespace lpr.WebAPI {
                       scope.ServiceProvider.GetService<ILprDbContext>()) {
               if (context != null)
               {
-                  context.Database.EnsureCreated();   
+                  if (context.Database.EnsureCreated())
+                  {
+                      SeederService seederService = new SeederService(context);
+                      seederService.Seed();
+                  }
               }
           }
         } builder.Services.AddControllers();

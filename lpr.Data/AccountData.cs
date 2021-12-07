@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using lpr.Common.Interfaces.Data;
 using lpr.Common.Interfaces.Contexts;
 using lpr.Common.Models;
@@ -39,6 +42,13 @@ namespace lpr.Data {
         _ctx.Add(account);
         _ctx.SaveChanges();
       
+        return account;
+    }
+
+    public Account Register(Account account)
+    {
+        _ctx.Add(account);
+        _ctx.SaveChanges();
         return account;
     }
   }
