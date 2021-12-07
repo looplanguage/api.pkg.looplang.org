@@ -10,11 +10,11 @@ namespace lpr.Data {
     public AccountData(ILprDbContext ctx) { _ctx = ctx; }
 
     public async Task<Account> GetAccountById(Guid accountId) {
-      return await _ctx.Account.Where(a => a.Id == accountId).FirstOrDefaultAsync();
+      return await _ctx.Account.Include(a => a.AccountIdentifiers).Where(a => a.Id == accountId).FirstOrDefaultAsync();
     }
 
     public async Task<Account> GetAccountLinkedToGithub(int githubId) {
-      return await _ctx.Account.Where(a => a.AccountIdentifiers.GithubId == githubId).FirstOrDefaultAsync();
+      return await _ctx.Account.Include(a => a.AccountIdentifiers).Where(a => a.AccountIdentifiers.GithubId == githubId).FirstOrDefaultAsync();
     }
 
     public async Task<bool> UpdateAccount(Account account) {
@@ -26,14 +26,16 @@ namespace lpr.Data {
     }
 
     public Account RegisterGithubAccount(GithubUser githubUser) {
+        AccountIdentifiers identifiers = new AccountIdentifiers(){GithubId = githubUser.Id};
         Account account = new Account{
-            AccountIdentifiers = new AccountIdentifiers(){GithubId = githubUser.Id},
+            AccountIdentifiers = identifiers,
             Id = new Guid(),
             Name = githubUser.Name,
             Logo = githubUser.AvatarUrl,
             Created = DateTime.Now,
         };
 
+        _ctx.Add(identifiers);
         _ctx.Add(account);
         _ctx.SaveChanges();
       

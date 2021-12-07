@@ -8,6 +8,7 @@ namespace lpr.Data.Contexts {
   public class LprContext : DbContext, ILprDbContext
   {
     public DbSet<Account> Account { get; set; } = null!;
+    public DbSet<AccountIdentifiers> AccountIdentifiers { get; set; } = null!;
     public DbSet<Organisation> Organisation { get; set; } = null!;
     public DbSet<Package> Package { get; set; } = null!;
     public DbSet<Version> Version { get; set; } = null!;
