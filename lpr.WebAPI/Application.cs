@@ -20,8 +20,8 @@ namespace lpr.WebAPI {
 
     public void AddDatabaseConnection(string connectionString) {
         builder.Services.AddDbContext<ILprDbContext, LprContext>(options => {
-          options.UseMySql(connectionString,
-                          new MariaDbServerVersion(new Version(10, 5, 9)));
+            options.UseMySql(connectionString,
+                            new MariaDbServerVersion(new Version(10, 5, 9)));
         });
 
         builder.Services.AddScoped<IPackageService, PackageService>();
