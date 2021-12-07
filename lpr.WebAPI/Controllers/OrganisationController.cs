@@ -33,7 +33,7 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public IActionResult GetOrganisation(string id) {
-      Organisation org = _organisationService.GetOrganisation(Guid.Parse(id));
+      Organisation? org = _organisationService.GetOrganisation(Guid.Parse(id));
       return StatusCode(200, org);
     }
 

@@ -22,29 +22,27 @@ namespace lpr.Logic.Services {
     }
 
     public Organisation AddOrganisation(Organisation org) {
-      // TODO check if user exists
-      /*
-          if(user == null)
-              throw new ApiException(401, new ErrorMessage(
-          "User not Found"
-          "The user is not found in the database make sure you have the right
-         ID"
-          ))
-       */
+            // TODO check if user exists
+            /*
+                if(user == null)
+                    throw new ApiException(401, new ErrorMessage(
+                "User not Found"
+                "The user is not found in the database make sure you have the right
+               ID"
+                ))
+             */
+            if(String.IsNullOrEmpty(org.Name) || org.Name.Length < 5)
+                throw new ApiException(400, new ErrorMessage("Organisation name not allowed", "The organisaton name must be longer than 4 charachters"));
+
+            if (!Utilities.ValidateName(org.Name))
+                throw new ApiException(400, new ErrorMessage("Organisation name not allowed", "The organisaton name cannot contain any numbers or special characters"));
+
       return _organisationData.AddOrganisation(org);
     }
 
-    public Organisation GetOrganisation(Guid orgId) {
-      Organisation ?org = _organisationData.GetOrganisationById(orgId);
+    public Organisation? GetOrganisation(Guid OrgId) {
 
-      if (org == null)
-        throw new ApiException(
-            500,
-            new ErrorMessage(
-                "Organisation not Found",
-                "The organisation was not found in the database make sure you have the right ID"));
-
-      return org;
+      return _organisationData.GetOrganisationById(OrgId);
     }
 
     public async Task<List<Organisation>>
