@@ -8,10 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace lpr.Common.Models {
-  public class Package {
-    [Key]
-    [Required]
-    public Guid Id { get; set; }
+    public class Package {
+        [Key]
+        [Required]
+        public Guid Id { get; set; }
 
     [Required] [MaxLength(100)] [Column(
         TypeName = "varchar(100)")] // Prevents international characters
@@ -19,31 +19,34 @@ namespace lpr.Common.Models {
       get; set;
     } = string.Empty;
 
-    [NotMapped] public int? Downloads {
-      get {
-        if (Versions != null)
-          return Versions.Select(v => v.Downloads).Sum();
-        return null;
-      }
+        [NotMapped] public int? Downloads {
+            get {
+            if (Versions != null)
+                return Versions.Select(v => v.Downloads).Sum();
+            return null;
+            }
+        }
+
+        public List<Version> Versions { get; set; }
+
+        public string? Documentation { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public bool Archived { get; set; }
+
+        public Package() : base() 
+        {
+            Versions = new List<Version>();
+        }
+        public Package(PackageDtoIn dto) {
+            Name = dto.Name;
+            List<Version> versions = new() { };
+            Versions = versions;
+            Documentation = dto.Documentation;
+            Archived = false;
+            Created = DateTime.UtcNow;
+            Id = Guid.NewGuid();
+        }
     }
-
-    public List<Version> Versions { get; set; }
-
-    public string? Documentation { get; set; }
-
-    public DateTime Created { get; set; }
-
-    public bool Archived { get; set; }
-
-    public Package() : base()
-    {
-      Versions = new List<Version>();
-    }
-    public Package(PackageDtoIn dto) {
-      Name = dto.Name;
-      List<Version> versions = new() { new Version() };
-      Versions = versions;
-      Documentation = dto.Documentation;
-    }
-  }
 }
