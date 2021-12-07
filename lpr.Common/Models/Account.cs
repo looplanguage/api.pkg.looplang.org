@@ -2,12 +2,12 @@
 {
     public class Account
     {
-        public int GithubId { get; set; }
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string? Logo { get; set; }
-        public List<Participant> ParticipantAt {get; set;}
-        public DateTime Created {  get; set; }
+        public AccountIdentifiers AccountIdentifiers { get; set; } = new AccountIdentifiers();
+        public Guid Id { get; set; } 
+        public string? Name { get; set; } = string.Empty;
+        public string? Logo { get; set; } = string.Empty;
+        public DateTime Created {  get; set; } 
+        
         
     }
 }

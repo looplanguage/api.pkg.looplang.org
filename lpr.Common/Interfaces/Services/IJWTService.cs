@@ -1,4 +1,5 @@
-﻿using lpr.Common.Interfaces.Data;
+﻿using System.Collections.Generic;
+using lpr.Common.Interfaces.Data;
 using System.Security.Claims;
 
 namespace lpr.Common.Interfaces.Services

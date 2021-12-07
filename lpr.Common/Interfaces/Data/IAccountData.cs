@@ -5,6 +5,6 @@ namespace lpr.Common.Interfaces.Data {
     public Task<Account> GetAccountById(Guid accountId);
     public Task<bool> UpdateAccount(Account account);
     public Task<Account> GetAccountLinkedToGithub(int githubId);
-    public Task<Account> RegisterGithubAccount(GithubUser githubUser);
+    public Account RegisterGithubAccount(GithubUser githubUser);
   }
 }

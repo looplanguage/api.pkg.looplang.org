@@ -9,16 +9,14 @@ namespace lpr.Common.Dtos.Out
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string? Logo { get; set; }
-        public List<Participant> ParticipantAt {get; set;}
         public DateTime Created {  get; set; }
 
         public ForeignAccountDtoOut(Account account)
         {
-            GithubId = account.GithubId;
+            GithubId = account.AccountIdentifiers.GithubId;
             Id = account.Id;
             Name = account.Name;
             Logo = account.Logo;
-            ParticipantAt = account.ParticipantAt;
             Created = account.Created;
         }
     }

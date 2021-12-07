@@ -1,6 +1,10 @@
-﻿using lpr.Common.Interfaces.Contexts;
+﻿using System.Collections.Generic;
+using System.Linq;
+using lpr.Common.Interfaces.Contexts;
 using lpr.Common.Interfaces.Services;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace lpr.WebAPI.Middleware
 {
@@ -21,7 +25,7 @@ namespace lpr.WebAPI.Middleware
                 if (jwtService.IsTokenValid(token))
                 {
                     IEnumerable<Claim> claims = jwtService.GetTokenClaims(token);
-                    string accountId = claims.FirstOrDefault(e => e.Type.Equals(ClaimTypes.Authentication)).Value;
+                    string ?accountId = claims.FirstOrDefault(e => e.Type.Equals(ClaimTypes.Authentication))?.Value;
 
                     context.Items["AccountId"] = accountId;
                     //context.Items["GitHubAccessToken"] = dbContext.Account.FirstOrDefault(x => x.GithubId == githubId);

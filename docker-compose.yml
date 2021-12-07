@@ -12,8 +12,15 @@ services:
       - 5001:443
     environment:
       - MariaDB_ConnectionString=Server=db;Database=LPR;User=root;Password=root
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80;https://+:443;
+      - ASPNETCORE_HTTPS_PORT=5001
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Looplang
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev_cert.pfx
     depends_on:
       - db
+    volumes:
+      - ./conf/https/:/https/
   db:
     container_name: Database
     image: mariadb:10.5.9

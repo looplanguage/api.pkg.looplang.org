@@ -14,7 +14,7 @@ namespace lpr.Data {
     }
 
     public async Task<Account> GetAccountLinkedToGithub(int githubId) {
-      return await _ctx.Account.Where(a => a.GithubId == githubId).FirstOrDefaultAsync();
+      return await _ctx.Account.Where(a => a.AccountIdentifiers.GithubId == githubId).FirstOrDefaultAsync();
     }
 
     public async Task<bool> UpdateAccount(Account account) {
@@ -25,9 +25,9 @@ namespace lpr.Data {
       return true;
     }
 
-    public async Task<Account> RegisterGithubAccount(GithubUser githubUser) {
+    public Account RegisterGithubAccount(GithubUser githubUser) {
         Account account = new Account{
-            GithubId = githubUser.Id,
+            AccountIdentifiers = new AccountIdentifiers(){GithubId = githubUser.Id},
             Id = new Guid(),
             Name = githubUser.Name,
             Logo = githubUser.AvatarUrl,
