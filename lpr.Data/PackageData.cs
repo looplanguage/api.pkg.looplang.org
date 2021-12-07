@@ -14,8 +14,7 @@ namespace lpr.Data {
 
     public PackageData(ILprDbContext ctx) { _ctx = ctx; }
 
-    public async Task<List<Package>> GetPackagesPaginatedAsync(int page,
-                                                               int amount) {
+    public async Task<List<Package>> GetPackagesPaginatedAsync(int page, int amount) {
       return await _ctx.Package.Skip(page * amount).Take(amount).ToListAsync();
     }
 

@@ -15,8 +15,7 @@ namespace lpr.Logic.Services {
         private readonly IPackageData _data;
         public PackageService(IPackageData data) { _data = data; }
 
-        public async Task<List<Package>> GetPackagesPaginatedAsync(int page,
-                                                                    int amount) {
+        public async Task<List<Package>> GetPackagesPaginatedAsync(int page, int amount) {
             return await _data.GetPackagesPaginatedAsync(page, amount);
         }
 
