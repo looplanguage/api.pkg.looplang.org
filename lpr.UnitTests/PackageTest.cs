@@ -117,19 +117,6 @@ namespace lpr.Tests {
             await Assert.ThrowsAsync<ApiException>(() => packageService.CreatePackageAsync(testPackage));
         }
 
-        [Fact]
-        public async void CreatePackageAsync_Throws_ApiException_String_Null()
-        {
-            Package testPackage = PackageFaker.Faker();
-
-            testPackage.Name = null;
-
-            PackageDataMock.Setup(d => d.CreatePackageAsync(testPackage))
-                .ReturnsAsync(testPackage);
-            IPackageService packageService = new PackageService(PackageDataMock.Object);
-
-            await Assert.ThrowsAsync<ApiException>(() => packageService.CreatePackageAsync(testPackage));
-        }
 
         [Fact]
         public async void CreatePackageAsync_Throws_ApiException_String_TooShort()
@@ -140,16 +127,6 @@ namespace lpr.Tests {
 
             PackageDataMock.Setup(d => d.CreatePackageAsync(testPackage))
                 .ReturnsAsync(testPackage);
-
-            IPackageService packageService = new PackageService(PackageDataMock.Object);
-
-            await Assert.ThrowsAsync<ApiException>(() => packageService.CreatePackageAsync(testPackage));
-        }
-
-        [Fact]
-        public async void CreatePackageAsync_Throws_ApiException_Package_Null()
-        {
-            Package testPackage = null;
 
             IPackageService packageService = new PackageService(PackageDataMock.Object);
 

@@ -29,20 +29,6 @@ namespace lpr.Tests {
         }
 
         [Fact]
-        public void AddOrganisation_Throws_ApiException_Name_Null()
-        {
-            Organisation TestOrganisation = OrganisationFaker.Faker();
-            TestOrganisation.Name = null;
-            this.organisationDataMock.Setup(d => d.AddOrganisation(TestOrganisation))
-                .Returns(TestOrganisation);
-            OrganisationService service =
-                new OrganisationService(this.organisationDataMock.Object);
-
-            Assert.Throws<ApiException>(() => service.AddOrganisation(TestOrganisation));
-        }
-
-
-        [Fact]
         public void AddOrganisation_Throws_ApiException_Name_Empty()
         {
             Organisation TestOrganisation = OrganisationFaker.Faker();

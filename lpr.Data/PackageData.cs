@@ -41,7 +41,7 @@ namespace lpr.Data {
           .FirstAsync(p => p.Id == packageId);
     }
 
-    public async Task<Package> ArchivePackageAsync(Package package) {
+    public Task<Package> ArchivePackageAsync(Package package) {
       throw new NotImplementedException();
       // return await _ctx.Package.FindAsync(p => p.Id == packageId)
     }
