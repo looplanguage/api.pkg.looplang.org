@@ -24,8 +24,7 @@ namespace lpr.Data {
       throw new NotImplementedException();
     }
 
-    public async Task<List<Package>>
-    GetPackagesFromOrganisationAsync(Guid organisationId) {
+    public async Task<List<Package>> GetPackagesFromOrganisationAsync(Guid organisationId) {
       Organisation organisation;
       try {
         organisation = await _ctx.Organisation.Include(p => p.Packages)

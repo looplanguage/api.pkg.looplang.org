@@ -18,8 +18,7 @@ namespace lpr.WebAPI.Controllers {
     [HttpGet("GetPackagesPaginated/{page}/{amount}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetPackagesPaginated(int page,
-                                                          int amount) {
+    public async Task<IActionResult> GetPackagesPaginated(int page, int amount) {
       List<Package> output = await _srv.GetPackagesPaginatedAsync(page, amount);
       return StatusCode(200, output);
     }
@@ -36,8 +35,7 @@ namespace lpr.WebAPI.Controllers {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult>
-    GetPackagesFromOrganisation(Guid organisationId) {
+    public async Task<IActionResult> GetPackagesFromOrganisation(Guid organisationId) {
       try {
         List<Package> output =
             await _srv.GetPackagesFromOrganisationAsync(organisationId);
@@ -52,8 +50,7 @@ namespace lpr.WebAPI.Controllers {
     [HttpPost("CreatePackage")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult>
-    CreatePackage([FromBody] PackageDtoIn newPackage) {
+    public async Task<IActionResult> CreatePackage([FromBody] PackageDtoIn newPackage) {
       Package output = await _srv.CreatePackageAsync(new Package(newPackage));
       return StatusCode(200, output);
     }
