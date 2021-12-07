@@ -92,6 +92,7 @@ namespace lpr.Common
 
             faker.RuleFor(a => a.Id, f => Guid.NewGuid());
             faker.RuleFor(a => a.Created, f => f.Date.Past());
+            faker.RuleFor(a => a.Logo, f => f.Image.LoremFlickrUrl());
             faker.RuleFor(a => a.Name, f => f.Person.UserName);
 
             return faker.Generate();
