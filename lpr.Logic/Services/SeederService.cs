@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using lpr.Common;
 using lpr.Common.Interfaces.Contexts;
-using lpr.Common.Interfaces.Data;
-using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
 
 namespace lpr.Logic.Services {
@@ -22,9 +20,6 @@ namespace lpr.Logic.Services {
         {
             _lprDbContext = ctx;
         }
-        
-        
-
         public int Seed()
         {
             foreach (Account account in Accounts())
@@ -34,7 +29,10 @@ namespace lpr.Logic.Services {
                 _lprDbContext.Add(organisation);
                 _lprDbContext.Add(organisationMember);
 
-                Packages(organisation);
+                foreach (Package package in Packages(organisation))
+                {
+                    Versions(package);
+                }
             }
             
 
@@ -55,19 +53,26 @@ namespace lpr.Logic.Services {
             return accounts;
         }
 
-        private void Packages(Organisation organisation)
+        private List<Package> Packages(Organisation organisation)
         {
+            List<Package> packages = new List<Package>();
             for (int i = 0; i < (int)Amounts.Packages; i++)
             {
                 Package package = LoopFaker.Package(organisation);
                 _lprDbContext.Add(package);
+                packages.Add(package);
+                
+            }
 
-                for (int j = 0; j < (int)Amounts.Versions; j++)
-                {
-                    lpr.Common.Models.Version version = LoopFaker.Version(package);
-                    _lprDbContext.Add(version);
-                }
+            return packages;
+        }
 
+        private void Versions(Package package)
+        {
+            for (int j = 0; j < (int)Amounts.Versions; j++)
+            {
+                lpr.Common.Models.Version version = LoopFaker.Version(package);
+                _lprDbContext.Add(version);
             }
         }
 

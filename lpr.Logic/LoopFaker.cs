@@ -1,9 +1,10 @@
 ﻿using System;
 using Bogus;
 using lpr.Common.Models;
+using lpr.Logic;
 using Version = lpr.Common.Models.Version;
 
-namespace lpr.Common
+namespace lpr.Logic
 {
     public class LoopFaker
     {
@@ -12,7 +13,7 @@ namespace lpr.Common
             Faker<Organisation> faker = new Faker<Organisation>();
             
             faker.RuleFor(o => o.Id, f => Guid.NewGuid())
-                .RuleFor(o => o.Name, f => f.Company.CompanyName())
+                .RuleFor(o => o.Name, f => Utilities.GenerateRandomValidString(5, 30))
                 .RuleFor(o => o.Documentation, f => f.Commerce.ProductDescription())
                 .RuleFor(o => o.Created, f => f.Date.Past())
                 .RuleFor(o => o.Logo, f => f.Image.LoremFlickrUrl());
@@ -26,7 +27,7 @@ namespace lpr.Common
             Faker<Package> faker = new Faker<Package>();
             
             faker.RuleFor(p => p.Id, f => Guid.NewGuid())
-                .RuleFor(p => p.Name, f => f.Company.CompanyName())
+                .RuleFor(p => p.Name, f => Utilities.GenerateRandomValidString(5, 30))
                 .RuleFor(p => p.Documentation, f => f.Commerce.ProductDescription())
                 .RuleFor(p => p.Created, f => f.Date.Past())
                 .RuleFor(p => p.Archived, false);
