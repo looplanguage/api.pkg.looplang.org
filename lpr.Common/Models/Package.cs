@@ -41,7 +41,7 @@ namespace lpr.Common.Models {
         }
         public Package(PackageDtoIn dto) {
             Name = dto.Name;
-            List<Version> versions = new() { new Version(dto.InitialVersion) };
+            List<Version> versions = new() { };
             Versions = versions;
             Documentation = dto.Documentation;
             Archived = false;
