@@ -1,4 +1,5 @@
-﻿using lpr.Common.Models;
+﻿using System.Threading.Tasks;
+using lpr.Common.Models;
 
 namespace lpr.Common.Interfaces.Services
 {
@@ -6,6 +7,6 @@ namespace lpr.Common.Interfaces.Services
     {
         Task<GithubUser> GetGithubUser(string token);
         Task<Account> GetRegisteredUser(int githubId);
-        Task<Account> Register(GithubUser githubUser);
+        Account Register(GithubUser githubUser);
     }
 }

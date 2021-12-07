@@ -34,8 +34,8 @@ namespace lpr.Logic.Services {
       return _organisationData.AddOrganisation(org);
     }
 
-    public Organisation GetOrganisation(Guid OrgId) {
-      Organisation org = _organisationData.GetOrganisationById(OrgId);
+    public Organisation GetOrganisation(Guid orgId) {
+      Organisation ?org = _organisationData.GetOrganisationById(orgId);
 
       if (org == null)
         throw new ApiException(

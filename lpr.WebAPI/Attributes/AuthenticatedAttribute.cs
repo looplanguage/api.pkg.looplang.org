@@ -10,10 +10,11 @@ namespace lpr.WebAPI.Attributes
     {
         public void OnAuthorization(AuthorizationFilterContext filterContext)
         {
-            string user = (string)filterContext.HttpContext.Items["AccountId"];
+            var items = filterContext.HttpContext.Items;
+            string ?user = filterContext.HttpContext.Items["AccountId"]?.ToString();
 
             Console.WriteLine(user);
-
+            
             if (user == null)
                 filterContext.Result = new UnauthorizedObjectResult("user is not authorized") { StatusCode = 403 };
         }

@@ -19,12 +19,9 @@ namespace lpr.Data {
       return await _ctx.Package.Skip(page * amount).Take(amount).ToListAsync();
     }
 
-    public async Task<List<Package>> GetTopPackagesAsync(int amount) {
+    public Task<List<Package>> GetTopPackagesAsync(int amount)
+    {
       throw new NotImplementedException();
-      // TODO: Because Downloads are based on the collective downloads of the
-      // versions, this method might need to move to the VersionService. return
-      // await _ctx.Package.Include(v => v.Versions).OrderByDescending(p =>
-      // p.Downloads).ToListAsync();
     }
 
     public async Task<Package> CreatePackageAsync(Package newPackage) {
@@ -44,7 +41,7 @@ namespace lpr.Data {
           .FirstAsync(p => p.Id == packageId);
     }
 
-    public async Task<Package> ArchivePackageAsync(Guid packageId) {
+    public Task<Package> ArchivePackageAsync(Guid packageId) {
       throw new NotImplementedException();
       // return await _ctx.Package.FindAsync(p => p.Id == packageId)
     }

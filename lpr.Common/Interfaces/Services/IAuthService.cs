@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace lpr.Common.Interfaces.Services
 {

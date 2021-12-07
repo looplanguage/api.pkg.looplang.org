@@ -18,7 +18,7 @@ namespace lpr.Data {
       return await _ctx.Account.Where(a => a.GithubId == githubId).FirstOrDefaultAsync();
     }
 
-    public async Task<Account> RegisterGithubAccount(GithubUser githubUser) {
+    public Account RegisterGithubAccount(GithubUser githubUser) {
         Account account = new Account{
             GithubId = githubUser.Id,
             Id = new Guid(),
