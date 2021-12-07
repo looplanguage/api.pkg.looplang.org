@@ -2,6 +2,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
+using lpr.Common.Dtos.In;
+using lpr.Common.Dtos.Out;
 using System.Threading.Tasks;
 using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
@@ -49,6 +51,52 @@ namespace lpr.WebAPI.Controllers {
                 string JsonOutput =  JsonSerializer.Serialize(_srv.GenerateJWT(new Claim(ClaimTypes.Authentication, account.Id.ToString()))); 
                 return StatusCode(201, JsonOutput);
             }
+        }
+
+        [HttpGet("/GetLoggedInAccount")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetLoggedInAccount()
+        {
+            //JWT is checked in the JWTMiddleware so this will always contain a token.
+            Request.Headers.TryGetValue("X-JWT-Token", out var token);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+
+            string accountId = jwtSecurityToken.Claims.First(claim => claim.Type == ClaimTypes.Authentication).Value;
+
+            Account account = await _srv.GetAccountById(Guid.Parse(accountId));
+            
+            return StatusCode(200, account);
+        }
+
+        [HttpGet("/GetAccount/{accountId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAccount(string accountId)
+        {
+            Account account = await _srv.GetAccountById(Guid.Parse(accountId));
+            
+            return StatusCode(200, new ForeignAccountDtoOut(account));
+        }
+
+        [HttpPut("/UpdateLoggedInAccount")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateLoggedInAccount([FromBody] UpdateAccountDtoIn account)
+        {
+            //JWT is checked in the JWTMiddleware so this will always contain a token.
+            Request.Headers.TryGetValue("X-JWT-Token", out var token);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+
+            string accountId = jwtSecurityToken.Claims.First(claim => claim.Type == ClaimTypes.Authentication).Value;
+
+            await _srv.UpdateAccount(account, Guid.Parse(accountId));
+            
+            return StatusCode(200, account);
         }
     }
 }
