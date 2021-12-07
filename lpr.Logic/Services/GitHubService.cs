@@ -1,17 +1,19 @@
+using System.Threading.Tasks;
 using lpr.Common.Interfaces.Data;
 using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
 using Octokit;
+using Account = lpr.Common.Models.Account;
 
 namespace lpr.Logic.Services
 {
     public class GitHubService: IGitHubService
     {
-        private readonly string _clientId;
-        private readonly string _clientSecret;
+        private readonly string? _clientId;//Unused
+        private readonly string? _clientSecret;//Unused
         private readonly IAccountData _accountData;
 
-        public GitHubService(string clientId, string clientSecret, IAccountData accountData)
+        public GitHubService(string? clientId, string? clientSecret, IAccountData accountData)
         {
             _clientId = clientId;
             _clientSecret = clientSecret;
@@ -32,14 +34,14 @@ namespace lpr.Logic.Services
             };
         }
 
-        public async Task<lpr.Common.Models.Account> GetRegisteredUser(int githubId)
+        public async Task<Account> GetRegisteredUser(int githubId)
         {
             return await _accountData.GetAccountLinkedToGithub(githubId);
         }
 
-        public async Task<lpr.Common.Models.Account> Register(GithubUser githubUser)
+        public Account Register(GithubUser githubUser)
         {
-            return await _accountData.RegisterGithubAccount(githubUser);
+            return _accountData.RegisterGithubAccount(githubUser);
         }
     }
 }

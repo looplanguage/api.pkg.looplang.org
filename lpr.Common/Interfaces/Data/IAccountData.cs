@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using lpr.Common.Models;
+﻿using lpr.Common.Models;
 
 namespace lpr.Common.Interfaces.Data {
   public interface IAccountData {
+    public Task<Account> GetAccountById(Guid accountId);
+    public Task<bool> UpdateAccount(Account account);
     public Task<Account> GetAccountLinkedToGithub(int githubId);
-    public Task<Account> RegisterGithubAccount(GithubUser githubUser);
+    public Account RegisterGithubAccount(GithubUser githubUser);
   }
 }

@@ -6,7 +6,9 @@ using lpr.Data;
 using lpr.Data.Contexts;
 using lpr.Logic.Services;
 using lpr.WebAPI.Middleware;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace lpr.WebAPI {
@@ -29,12 +31,15 @@ namespace lpr.WebAPI {
                     builder.Services.BuildServiceProvider().CreateScope()) {
           using (var context =
                       scope.ServiceProvider.GetService<ILprDbContext>()) {
-            context.Database.EnsureCreated();
+              if (context != null)
+              {
+                  context.Database.EnsureCreated();   
+              }
           }
         } builder.Services.AddControllers();
     }
 
-    public void AddGitHubOauth(string clientId, string clientSecret)
+    public void AddGitHubOauth(string? clientId, string? clientSecret)
     {
         builder.Services.AddScoped<IAccountData, AccountData>();
         builder.Services.AddScoped<IAuthService, AuthService>(x =>
@@ -45,7 +50,7 @@ namespace lpr.WebAPI {
         );
     }
 
-    public void AddJwtService(string jwtTokenSecret)
+    public void AddJwtService(string? jwtTokenSecret)
     {
         //TODO: move to logic layer or keep it at webAPI?
         builder.Services.AddScoped<IJWTService, JWTService>(_ =>

@@ -3,23 +3,24 @@ using lpr.Common.Interfaces.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
 using System.Threading.Tasks;
 using lpr.Common.Models;
 using System.Security.Claims;
 using Newtonsoft.Json.Linq;
+using lpr.Common.Dtos.In;
 
 namespace lpr.Logic.Services
 {
     public class AuthService: IAuthService
     {
-        private readonly string _clientId;
-        private readonly string _clientSecret;
+        private readonly string? _clientId;
+        private readonly string? _clientSecret;
         private readonly IJWTService _jwtSrv;
-        private readonly IAccountData _accountData;//TODO: yet unused!!!!!
+        private readonly IAccountData _accountData;
 
-        public AuthService(string clientId, string clientSecret, IJWTService jwtService, IAccountData accountData)
+        public AuthService(string? clientId, string? clientSecret, IJWTService jwtService, IAccountData accountData)
         {
             _clientId = clientId;
             _clientSecret = clientSecret;
@@ -27,8 +28,29 @@ namespace lpr.Logic.Services
             _accountData = accountData;
         }
 
+        public async Task<Account> GetAccountById(Guid accountId)
+        {
+            return await _accountData.GetAccountById(accountId);
+        }
+
+        public async Task<Account> UpdateAccount(UpdateAccountDtoIn account, Guid accountId)
+        {
+            Account currentAccount = await GetAccountById(accountId);
+
+            if(!string.IsNullOrEmpty(account.Name))
+                currentAccount.Name = account.Name;
+            if(!string.IsNullOrEmpty(account.Logo))
+                currentAccount.Logo = account.Logo;
+
+            await _accountData.UpdateAccount(currentAccount);
+            return currentAccount;
+        }
+
         public async Task<string> ValidateGitHubAccessToken(string authKey)
         {
+            if((new List<string?>{_clientId,_clientSecret}).Any(id => id == null))
+                throw new Exception("This method cannot be used because it's missing GitHub related secret values.");
+
             var body = JsonContent.Create(new {
                 client_id = _clientId,
                 client_secret = _clientSecret,
@@ -48,13 +70,17 @@ namespace lpr.Logic.Services
 
             if (githubAuth.ContainsKey("access_token"))
             {
-                string accessToken = githubAuth.Property("access_token").Value.ToString();
-                string jwt = GenerateJWT(new Claim(ClaimTypes.Authentication, accessToken));
-                //string jwt = _jwtSrv.GenerateToken(model);
-                return jwt;
+                var property = githubAuth.Property("access_token");
+                if (property != null)
+                {
+                    string accessToken = property.Value.ToString();
+                    string jwt = GenerateJWT(new Claim(ClaimTypes.Authentication, accessToken));
+                    //string jwt = _jwtSrv.GenerateToken(model);
+                    return jwt;
+                }
+    
             }
-            else
-                throw new Exception("Not a valid authKey has been given, is used or expired.");
+            throw new Exception("Not a valid authKey has been given, is used or expired.");
         }
 
         public string GenerateJWT(Claim claim)//TODO: this may be temporarily.
@@ -66,5 +92,5 @@ namespace lpr.Logic.Services
           };
           return _jwtSrv.GenerateToken(model);
         }
-    }
+  }
 }

@@ -20,23 +20,9 @@ namespace lpr.Common.Models {
 
     public string? Documentation { get; set; }
 
-    [Required] public string File { get; set; }
-
     public DateTime Created { get; set; }
 
     public bool Archived { get; set; }
-
-    public List<Account> Participants { get; set; }
-
     public int Downloads { get; set; }
-
-    public Version() : base() {}
-    public Version(VersionDtoIn dto) {
-      Major = dto.Major;
-      Minor = dto.Minor;
-      Patch = dto.Patch;
-      Documentation = dto.Documentation;
-      File = dto.File;
-    }
   }
 }

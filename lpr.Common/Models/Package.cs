@@ -13,11 +13,11 @@ namespace lpr.Common.Models {
         [Required]
         public Guid Id { get; set; }
 
-        [Required] [MaxLength(100)] [Column(
-            TypeName = "varchar(100)")] // Prevents international characters
-        public string Name {
-            get; set;
-        }
+    [Required] [MaxLength(100)] [Column(
+        TypeName = "varchar(100)")] // Prevents international characters
+    public string Name {
+      get; set;
+    } = string.Empty;
 
         [NotMapped] public int? Downloads {
             get {
@@ -35,7 +35,10 @@ namespace lpr.Common.Models {
 
         public bool Archived { get; set; }
 
-        public Package() : base() {}
+        public Package() : base() 
+        {
+            Versions = new List<Version>();
+        }
         public Package(PackageDtoIn dto) {
             Name = dto.Name;
             List<Version> versions = new() { new Version(dto.InitialVersion) };

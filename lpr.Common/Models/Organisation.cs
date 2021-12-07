@@ -11,7 +11,7 @@ namespace lpr.Common.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public string? Logo { get; set; }
         public List<Package> Packages { get; set; }
         public string? Documentation { get; set; }
@@ -25,6 +25,10 @@ namespace lpr.Common.Models
             Packages = new List<Package>();
         }
 
-        public Organisation(){}
+        public Organisation()
+        {
+            Created = DateTime.UtcNow;
+            Packages = new List<Package>();
+        }
     }
 }
