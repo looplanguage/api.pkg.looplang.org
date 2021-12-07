@@ -34,7 +34,7 @@ namespace lpr.Common.Models {
         public DateTime Created { get; set; }
 
         public bool Archived { get; set; }
-        public Organisation Organisation { get; set; }
+        public Organisation? Organisation { get; set; }
 
         public Package() : base() 
         {
