@@ -1,4 +1,6 @@
-﻿using lpr.Common.Models;
+﻿using System;
+using System.Threading.Tasks;
+using lpr.Common.Models;
 
 namespace lpr.Common.Interfaces.Data {
   public interface IAccountData {

@@ -2,8 +2,8 @@
 using lpr.Common.Interfaces.Data;
 using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
+using lpr.Logic;
 using lpr.Logic.Services;
-using lpr.Tests.Faker;
 using Moq;
 using Xunit;
 
@@ -17,7 +17,7 @@ namespace lpr.Tests {
 
         [Fact]
         public void AddOrganisation_True() {
-            Organisation TestOrganisation = OrganisationFaker.Faker();
+            Organisation TestOrganisation = LoopFaker.Organisation();
             this.organisationDataMock.Setup(d => d.AddOrganisation(TestOrganisation))
                 .Returns(TestOrganisation);
             OrganisationService service =
@@ -31,7 +31,7 @@ namespace lpr.Tests {
         [Fact]
         public void AddOrganisation_Throws_ApiException_Name_Empty()
         {
-            Organisation TestOrganisation = OrganisationFaker.Faker();
+            Organisation TestOrganisation = LoopFaker.Organisation();
             TestOrganisation.Name = "";
             this.organisationDataMock.Setup(d => d.AddOrganisation(TestOrganisation))
                 .Returns(TestOrganisation);
@@ -44,7 +44,7 @@ namespace lpr.Tests {
         [Fact]
         public void AddOrganisation_Throws_ApiException_Name_Too_Short()
         {
-            Organisation TestOrganisation = OrganisationFaker.Faker();
+            Organisation TestOrganisation = LoopFaker.Organisation();
             TestOrganisation.Name = "test";
 
             this.organisationDataMock.Setup(d => d.AddOrganisation(TestOrganisation))
@@ -58,7 +58,7 @@ namespace lpr.Tests {
 
         [Fact]
         public void GetOrganisation_True() {
-            Organisation TestOrganisation = OrganisationFaker.Faker();
+            Organisation TestOrganisation = LoopFaker.Organisation();
             this.organisationDataMock
                 .Setup(d => d.GetOrganisationById(TestOrganisation.Id))
                 .Returns(TestOrganisation);
@@ -73,7 +73,7 @@ namespace lpr.Tests {
         [Fact]
         public void GetOrganisation_False()
         {
-            Organisation TestOrganisation = OrganisationFaker.Faker();
+            Organisation TestOrganisation = LoopFaker.Organisation();
             this.organisationDataMock
                 .Setup(d => d.GetOrganisationById(TestOrganisation.Id))
                 .Returns(TestOrganisation);

@@ -4,7 +4,6 @@ using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
 using lpr.Logic;
 using lpr.Logic.Services;
-using lpr.Tests.Faker;
 using Moq;
 using Xunit;
 
@@ -17,7 +16,7 @@ namespace lpr.Tests {
 
         [Fact]
         public async void GetFullPackageAsync_True() {
-            Package TestPackage = PackageFaker.Faker();
+            Package TestPackage = LoopFaker.Package();
             this.PackageDataMock.Setup(d => d.GetFullPackageAsync(TestPackage.Id))
                 .Returns(Task.FromResult(TestPackage));
 
@@ -31,7 +30,7 @@ namespace lpr.Tests {
         [Fact]
         public async void GetFullPackageAsync_False()
         {
-            Package TestPackage = PackageFaker.Faker();
+            Package TestPackage = LoopFaker.Package();
             this.PackageDataMock.Setup(d => d.GetFullPackageAsync(TestPackage.Id))
                 .Returns(Task.FromResult(TestPackage));
 
@@ -45,8 +44,8 @@ namespace lpr.Tests {
         [Fact]
         public async void CreatePackageAsync_True()
         {
-            Package testPackage = PackageFaker.Faker();
-            Account testAccount = AccountFaker.Faker();
+            Package testPackage = LoopFaker.Package();
+            Account testAccount = LoopFaker.Account();
 
             PackageDataMock.Setup(d => d.CreatePackageAsync(null, testAccount.Id, testPackage))
                 .ReturnsAsync(testPackage);
@@ -64,7 +63,7 @@ namespace lpr.Tests {
         [Fact]
         public async void ArchivePackageAsync_True()
         {
-            Package testPackage = PackageFaker.Faker();
+            Package testPackage = LoopFaker.Package();
 
             PackageDataMock.Setup(d => d.ArchivePackageAsync(testPackage))
                 .ReturnsAsync(testPackage);
@@ -82,7 +81,7 @@ namespace lpr.Tests {
         [Fact]
         public async void ArchivePackageAsync_Throws_ApiExecption_No_Pacakage()
         {
-            Package testPackage = PackageFaker.Faker();
+            Package testPackage = LoopFaker.Package();
 
             PackageDataMock.Setup(d => d.ArchivePackageAsync(testPackage))
                 .ReturnsAsync(testPackage);
@@ -95,8 +94,8 @@ namespace lpr.Tests {
         [Fact]
         public async void CreatePackageAsync_Throws_ApiException_String_Empty()
         {
-            Package testPackage = PackageFaker.Faker();
-            Account testAccount = AccountFaker.Faker();
+            Package testPackage = LoopFaker.Package();
+            Account testAccount = LoopFaker.Account();
 
             testPackage.Name = "";
 
@@ -114,8 +113,8 @@ namespace lpr.Tests {
         [Fact]
         public async void CreatePackageAsync_Throws_ApiException_Invalid_Character()
         {
-            Package testPackage = PackageFaker.Faker();
-            Account testAccount = AccountFaker.Faker();
+            Package testPackage = LoopFaker.Package();
+            Account testAccount = LoopFaker.Account();
 
             testPackage.Name = "TestPackage#";
 
@@ -134,8 +133,8 @@ namespace lpr.Tests {
         [Fact]
         public async void CreatePackageAsync_Throws_ApiException_String_TooShort()
         {
-            Package testPackage = PackageFaker.Faker();
-            Account testAccount = AccountFaker.Faker();
+            Package testPackage = LoopFaker.Package();
+            Account testAccount = LoopFaker.Account();
 
             testPackage.Name = "test";
 
@@ -153,8 +152,8 @@ namespace lpr.Tests {
         [Fact]
         public async void CreatePackageAsync_Throws_ApiException_Account_Doesnt_Exist()
         {
-            Package testPackage = PackageFaker.Faker();
-            Account testAccount = AccountFaker.Faker();
+            Package testPackage = LoopFaker.Package();
+            Account testAccount = LoopFaker.Account();
 
             testPackage.Name = "test";
 
