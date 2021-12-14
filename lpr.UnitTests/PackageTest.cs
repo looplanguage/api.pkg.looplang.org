@@ -11,8 +11,9 @@ using Xunit;
 namespace lpr.Tests {
     public class PackageTest {
         public Mock<IPackageData> PackageDataMock;
+        public Mock<IAccountData> AccountDataMock;
 
-        public PackageTest() { this.PackageDataMock = new Mock<IPackageData>(); }
+        public PackageTest() { this.PackageDataMock = new Mock<IPackageData>(); this.AccountDataMock = new Mock<IAccountData>(); }
 
         [Fact]
         public async void GetFullPackageAsync_True() {
@@ -21,7 +22,7 @@ namespace lpr.Tests {
                 .Returns(Task.FromResult(TestPackage));
 
             IPackageService packageService =
-                new PackageService(this.PackageDataMock.Object);
+                new PackageService(this.PackageDataMock.Object, this.AccountDataMock.Object);
             var pack = await packageService.GetFullPackageAsync(TestPackage.Id);
 
             Assert.Equal(pack, TestPackage);
@@ -35,7 +36,7 @@ namespace lpr.Tests {
                 .Returns(Task.FromResult(TestPackage));
 
             IPackageService packageService =
-                new PackageService(this.PackageDataMock.Object);
+                new PackageService(this.PackageDataMock.Object, this.AccountDataMock.Object);
             Package pack = await packageService.GetFullPackageAsync(System.Guid.Empty);
 
             Assert.Null(pack);
@@ -45,13 +46,17 @@ namespace lpr.Tests {
         public async void CreatePackageAsync_True()
         {
             Package testPackage = PackageFaker.Faker();
+            Account testAccount = AccountFaker.Faker();
 
-            PackageDataMock.Setup(d => d.CreatePackageAsync(testPackage))
+            PackageDataMock.Setup(d => d.CreatePackageAsync(null, testAccount.Id, testPackage))
                 .ReturnsAsync(testPackage);
+            
+            AccountDataMock.Setup(d => d.GetAccountById(testAccount.Id))
+                .ReturnsAsync(testAccount);
 
-            IPackageService packageService = new PackageService(PackageDataMock.Object);
+            IPackageService packageService = new PackageService(PackageDataMock.Object, this.AccountDataMock.Object);
 
-            Package package = await packageService.CreatePackageAsync(testPackage);
+            Package package = await packageService.CreatePackageAsync(null, testAccount.Id, testPackage);
 
             Assert.Equal(package, testPackage);
         }
@@ -67,7 +72,7 @@ namespace lpr.Tests {
             PackageDataMock.Setup(d => d.GetFullPackageAsync(testPackage.Id))
                 .ReturnsAsync(testPackage);
 
-            IPackageService packageService = new PackageService(PackageDataMock.Object);
+            IPackageService packageService = new PackageService(PackageDataMock.Object, this.AccountDataMock.Object);
 
             Package package = await packageService.ArchivePackageAsync(testPackage.Id);
 
@@ -82,7 +87,7 @@ namespace lpr.Tests {
             PackageDataMock.Setup(d => d.ArchivePackageAsync(testPackage))
                 .ReturnsAsync(testPackage);
 
-            IPackageService packageService = new PackageService(PackageDataMock.Object);
+            IPackageService packageService = new PackageService(PackageDataMock.Object, this.AccountDataMock.Object);
 
             await Assert.ThrowsAsync<ApiException>(() => packageService.ArchivePackageAsync(System.Guid.Empty));
         }
@@ -91,30 +96,38 @@ namespace lpr.Tests {
         public async void CreatePackageAsync_Throws_ApiException_String_Empty()
         {
             Package testPackage = PackageFaker.Faker();
+            Account testAccount = AccountFaker.Faker();
 
             testPackage.Name = "";
 
-            PackageDataMock.Setup(d => d.CreatePackageAsync(testPackage))
+            PackageDataMock.Setup(d => d.CreatePackageAsync(null, testAccount.Id, testPackage))
                 .ReturnsAsync(testPackage);
-            
-            IPackageService packageService = new PackageService(PackageDataMock.Object);
 
-            await Assert.ThrowsAsync<ApiException>(() => packageService.CreatePackageAsync(testPackage));
+            AccountDataMock.Setup(d => d.GetAccountById(testAccount.Id))
+                .ReturnsAsync(testAccount);
+            
+            IPackageService packageService = new PackageService(PackageDataMock.Object, this.AccountDataMock.Object);
+
+            await Assert.ThrowsAsync<ApiException>(() => packageService.CreatePackageAsync(null, testAccount.Id, testPackage));
         }
 
         [Fact]
         public async void CreatePackageAsync_Throws_ApiException_Invalid_Character()
         {
             Package testPackage = PackageFaker.Faker();
+            Account testAccount = AccountFaker.Faker();
 
             testPackage.Name = "TestPackage#";
 
-            PackageDataMock.Setup(d => d.CreatePackageAsync(testPackage))
+            PackageDataMock.Setup(d => d.CreatePackageAsync(null, testAccount.Id, testPackage))
                 .ReturnsAsync(testPackage);
 
-            IPackageService packageService = new PackageService(PackageDataMock.Object);
+            AccountDataMock.Setup(d => d.GetAccountById(testAccount.Id))
+                .ReturnsAsync(testAccount);
 
-            await Assert.ThrowsAsync<ApiException>(() => packageService.CreatePackageAsync(testPackage));
+            IPackageService packageService = new PackageService(PackageDataMock.Object, this.AccountDataMock.Object);
+
+            await Assert.ThrowsAsync<ApiException>(() => packageService.CreatePackageAsync(null, testAccount.Id, testPackage));
         }
 
 
@@ -122,15 +135,35 @@ namespace lpr.Tests {
         public async void CreatePackageAsync_Throws_ApiException_String_TooShort()
         {
             Package testPackage = PackageFaker.Faker();
+            Account testAccount = AccountFaker.Faker();
 
             testPackage.Name = "test";
 
-            PackageDataMock.Setup(d => d.CreatePackageAsync(testPackage))
+            PackageDataMock.Setup(d => d.CreatePackageAsync(null, testAccount.Id, testPackage))
                 .ReturnsAsync(testPackage);
 
-            IPackageService packageService = new PackageService(PackageDataMock.Object);
+            AccountDataMock.Setup(d => d.GetAccountById(testAccount.Id))
+                .ReturnsAsync(testAccount);
 
-            await Assert.ThrowsAsync<ApiException>(() => packageService.CreatePackageAsync(testPackage));
+            IPackageService packageService = new PackageService(PackageDataMock.Object, this.AccountDataMock.Object);
+
+            await Assert.ThrowsAsync<ApiException>(() => packageService.CreatePackageAsync(null, testAccount.Id, testPackage));
+        }
+
+        [Fact]
+        public async void CreatePackageAsync_Throws_ApiException_Account_Doesnt_Exist()
+        {
+            Package testPackage = PackageFaker.Faker();
+            Account testAccount = AccountFaker.Faker();
+
+            testPackage.Name = "test";
+
+            PackageDataMock.Setup(d => d.CreatePackageAsync(null, testAccount.Id, testPackage))
+                .ReturnsAsync(testPackage);
+
+            IPackageService packageService = new PackageService(PackageDataMock.Object, this.AccountDataMock.Object);
+
+            await Assert.ThrowsAsync<ApiException>(() => packageService.CreatePackageAsync(null, testAccount.Id, testPackage));
         }
     }
 }

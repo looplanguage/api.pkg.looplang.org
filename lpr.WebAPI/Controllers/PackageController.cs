@@ -7,6 +7,8 @@ using lpr.Common.Interfaces;
 using lpr.Common.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace lpr.WebAPI.Controllers {
   [ApiController]
@@ -47,11 +49,19 @@ namespace lpr.WebAPI.Controllers {
       }
     }
 
-    [HttpPost("CreatePackage")]
+    [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> CreatePackage([FromBody] PackageDtoIn newPackage) {
-      Package output = await _srv.CreatePackageAsync(new Package(newPackage));
+    public async Task<IActionResult> CreatePackage(Guid? organisationId, [FromBody] PackageDtoIn newPackage) {
+
+      //JWT is checked in the JWTMiddleware so this will always contain a token.
+      Request.Headers.TryGetValue("X-JWT-Token", out var token);
+      var jwtSecurityToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
+      string accountId = jwtSecurityToken.Claims.First(claim => claim.Type == ClaimTypes.Authentication).Value;
+
+      Package output = await _srv.CreatePackageAsync(organisationId, Guid.Parse(accountId), new Package(newPackage));
       return StatusCode(200, output);
     }
 

@@ -36,14 +36,23 @@ namespace lpr.Data {
       return organisation.Packages;
     }
 
-    public async Task<Package> CreatePackageAsync(Package newPackage) {
-      // Do we also need to create the first 'fallback' version?
+    public async Task<Package> CreatePackageAsync(Guid? organisationId, Guid accountId, Package newPackage) {
+      //TODO: Link package to Account.
+      // Do we also need to create the first 'fallback' package version?
       newPackage.Id = Guid.NewGuid();
       newPackage.Created = DateTime.Now;
 
       await _ctx.Package.AddAsync(newPackage);
-      _ctx.SaveChanges(); // TODO: Change to SaveChangesAsync (not available for
-      // some reason??)
+
+      if(organisationId != null)
+      {
+        Organisation org = await _ctx.Organisation.Where(o => o.Id == organisationId).FirstOrDefaultAsync();
+        if(org == null)
+          throw new ArgumentException("Organisation does not exist.");
+        org.Packages.Add(newPackage);
+      }
+
+      _ctx.SaveChanges();
 
       return newPackage;
     }
