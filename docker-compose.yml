@@ -17,6 +17,8 @@ services:
       - ASPNETCORE_HTTPS_PORT=5001
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Looplang
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev_cert.pfx
+      - S3_AccessKey=root
+      - S3_PrivateKey=rootpass
     depends_on:
       - db
     volumes:
@@ -32,3 +34,15 @@ services:
       - 3306:3306
     volumes:
       - ./MariaDB-Data:/var/lib/mysql
+  s3:
+    container_name: ObjectStorage
+    restart: on-failure
+    image: quay.io/minio/minio:RELEASE.2021-12-09T06-19-41Z
+    command: server /data --console-address ":9001"
+    environment:
+     - MINIO_ROOT_USER=root
+     - MINIO_ROOT_PASSWORD=rootpass
+    ports:
+     - 9000:9000
+     - 9001:9001
+
