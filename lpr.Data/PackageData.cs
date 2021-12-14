@@ -24,14 +24,12 @@ namespace lpr.Data {
     }
 
     public async Task<List<Package>> GetPackagesFromOrganisationAsync(Guid organisationId) {
-      Organisation organisation;
-      try {
-        organisation = await _ctx.Organisation.Include(p => p.Packages)
+      Organisation organisation = await _ctx.Organisation.Include(p => p.Packages)
                            .Where(o => o.Id == organisationId)
                            .FirstAsync();
-      } catch {
+
+      if(organisation == null)
         throw new ArgumentException("Organisation does not exist.");
-      }
 
       return organisation.Packages;
     }

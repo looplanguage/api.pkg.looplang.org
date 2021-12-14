@@ -155,8 +155,6 @@ namespace lpr.Tests {
             Package testPackage = LoopFaker.Package();
             Account testAccount = LoopFaker.Account();
 
-            testPackage.Name = "test";
-
             PackageDataMock.Setup(d => d.CreatePackageAsync(null, testAccount.Id, testPackage))
                 .ReturnsAsync(testPackage);
 
