@@ -98,17 +98,5 @@ namespace lpr.Logic
 
             return faker.Generate();
         }
-
-        public static Account StaticAccount()
-        {
-            Faker<Account> faker = new Faker<Account>();
-
-            faker.RuleFor(a => a.Id, f => Guid.Parse("183858b9-6aff-4d3b-aeef-3c4dcff295c0"));
-            faker.RuleFor(a => a.Created, f => f.Date.Past());
-            faker.RuleFor(a => a.Logo, f => f.Image.LoremFlickrUrl());
-            faker.RuleFor(a => a.Name, f => f.Person.UserName);
-
-            return faker.Generate();
-        }
     }
 }
