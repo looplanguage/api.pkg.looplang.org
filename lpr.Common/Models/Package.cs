@@ -51,7 +51,7 @@ namespace lpr.Common.Models {
 
         public Version? GetLatestVersion()
         {
-            return Versions.OrderBy(x => x.Major).ThenBy(x => x.Minor).ThenBy(x => x.Patch).First();
+            return Versions.OrderByDescending(x => x.Major).ThenByDescending(x => x.Minor).ThenByDescending(x => x.Patch).FirstOrDefault();
         }
     }
 }

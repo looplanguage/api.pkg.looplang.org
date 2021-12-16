@@ -16,6 +16,7 @@ namespace lpr.Data
         public void AddVersion(Common.Models.Version version, Package package)
         {
             package.Versions.Add(version);
+            _ctx.Version.Add(version);
             _ctx.SaveChanges();
         }
     }
