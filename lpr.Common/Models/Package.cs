@@ -13,11 +13,11 @@ namespace lpr.Common.Models {
         [Required]
         public Guid Id { get; set; }
 
-    [Required] [MaxLength(100)] [Column(
-        TypeName = "varchar(100)")] // Prevents international characters
-    public string Name {
-      get; set;
-    } = string.Empty;
+        [Required] [MaxLength(100)] [Column(
+            TypeName = "varchar(100)")] // Prevents international characters
+        public string Name {
+        get; set;
+        } = string.Empty;
 
         [NotMapped] public int? Downloads {
             get {
@@ -34,6 +34,7 @@ namespace lpr.Common.Models {
         public DateTime Created { get; set; }
 
         public bool Archived { get; set; }
+        public Organisation? Organisation { get; set; }
 
         public Package() : base() 
         {

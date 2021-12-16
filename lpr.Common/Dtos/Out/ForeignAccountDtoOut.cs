@@ -1,3 +1,4 @@
+using System;
 using lpr.Common.Models;
 
 namespace lpr.Common.Dtos.Out

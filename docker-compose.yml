@@ -15,14 +15,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80;https://+:443;
       - ASPNETCORE_HTTPS_PORT=5001
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=Looplang
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev_cert.pfx
-      - S3_AccessKey=root
-      - S3_PrivateKey=rootpass
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=ob6KdSAOuNB3oe7
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/dev-cert.pfx
     depends_on:
       - db
-    volumes:
-      - ./conf/https/:/https/
   db:
     container_name: Database
     image: mariadb:10.5.9

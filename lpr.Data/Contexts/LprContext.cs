@@ -12,6 +12,7 @@ namespace lpr.Data.Contexts {
     public DbSet<Organisation> Organisation { get; set; } = null!;
     public DbSet<Package> Package { get; set; } = null!;
     public DbSet<Version> Version { get; set; } = null!;
+    public DbSet<OrganisationMember> OrganisationMember  { get; set; } = null!;
 
     public LprContext(DbContextOptions<LprContext> options) : base(options)
     {

@@ -12,9 +12,12 @@ using System.Threading.Tasks;
 namespace lpr.Data {
   public class OrganisationData : IOrganisationData {
     private readonly ILprDbContext _dbContext;
-    public Organisation AddOrganisation(Organisation org) {
+    public OrganisationData(ILprDbContext db) { _dbContext = db; }
+    public Organisation AddOrganisation(Organisation org)
+    {
       _dbContext.Add(org);
       _dbContext.SaveChanges();
+
       return org;
     }
 
@@ -23,8 +26,7 @@ namespace lpr.Data {
                                                          id.ToString());
     }
 
-    public async Task<List<Organisation>>
-    GetOrganisationsPaginatedAsync(int amount, Guid? fromOrganisationId) {
+    public async Task<List<Organisation>> GetOrganisationsPaginatedAsync(int amount, Guid? fromOrganisationId) {
 
       if (fromOrganisationId == null) {
         return await _dbContext.Organisation.OrderBy(o => o.Id)
@@ -38,6 +40,5 @@ namespace lpr.Data {
       }
     }
 
-    public OrganisationData(ILprDbContext db) { _dbContext = db; }
   }
 }
