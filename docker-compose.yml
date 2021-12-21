@@ -19,10 +19,6 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/dev-cert.pfx
       - S3_AccessKey=root
       - S3_PrivateKey=rootpass
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev_cert.pfx
-      - S3_AccessKey=root
-      - S3_PrivateKey=rootpass
->>>>>>>>> Temporary merge branch 2
     depends_on:
       - db
   db:
