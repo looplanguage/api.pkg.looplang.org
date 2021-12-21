@@ -54,5 +54,11 @@ namespace lpr.Common.Models {
         {
             return Versions.OrderByDescending(x => x.Major).ThenByDescending(x => x.Minor).ThenByDescending(x => x.Patch).FirstOrDefault();
         }
+
+        public Version? GetVersion(Version v)
+        {
+            return Versions.Where(x => x.Major == v.Major && x.Minor == v.Minor && x.Patch == v.Patch).FirstOrDefault();
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Amazon.S3;
+using Amazon.S3.Model;
 using lpr.Common.Interfaces.Data;
 using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
@@ -26,9 +27,39 @@ namespace lpr.WebAPI.Controllers
             (Common.Models.Version version, bool success) = Utilities.GetSemVerFromString(newVersion.Version);
             if (!success)
                 throw new ApiException(400, new ErrorMessage("", ""));
-            await _versionService.AddVersion(newVersion.File, version, newVersion.PackageId);
+            Common.Models.Version v = await _versionService.AddVersion(newVersion.File, version, newVersion.PackageId);
 
-            return Ok(version);
+            return Ok(v);
+        }
+
+        [HttpGet("/{package}/{version}")]
+        public async Task<IActionResult> GetVersion(string package, string version)
+        {
+            if (version == null || version == "latest")
+            {
+                GetObjectResponse response = await _versionService.GetLatestVersion(package);
+                return File(response.ResponseStream, response.Headers.ContentType, package);
+            }
+
+            (Common.Models.Version vers, bool success) = Utilities.GetSemVerFromString(version);
+            if (!success)
+                throw new ApiException(400, new ErrorMessage("", ""));
+
+            GetObjectResponse res= await _versionService.GetVersion(package, vers);
+
+            return File(res.ResponseStream, res.Headers.ContentType, package);
+        }
+        
+        [HttpPut("/{package}/{version}")]
+        public async Task<IActionResult> DeprecateVersion(string package, string version)
+        {
+
+            (Common.Models.Version ver, bool success) = Utilities.GetSemVerFromString(version);
+            if (!success)
+                throw new ApiException(400, new ErrorMessage("", ""));
+
+            Common.Models.Version v = await _versionService.DeprecateVersion(package, ver);
+            return Ok(v);
         }
     }
 }

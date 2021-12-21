@@ -10,5 +10,6 @@ namespace lpr.Common.Interfaces.Data
     public interface IVersionData
     {
         void AddVersion(Models.Version version, Package package);
+        void UpdateVersion(Models.Version version);
     }
 }

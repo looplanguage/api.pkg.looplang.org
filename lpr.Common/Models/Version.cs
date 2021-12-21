@@ -18,8 +18,6 @@ namespace lpr.Common.Models {
 
     [Required] public int Patch { get; set; }
 
-    public Package? Package { get; set; }
-
     public string? Documentation { get; set; }
 
     public DateTime Created { get; set; }
@@ -35,5 +33,7 @@ namespace lpr.Common.Models {
         Patch = patch;
         Created = DateTime.UtcNow;
     }
+
+    public Version() { }
   }
 }

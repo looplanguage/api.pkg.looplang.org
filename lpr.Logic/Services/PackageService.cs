@@ -76,5 +76,10 @@ namespace lpr.Logic.Services {
 
             return await _packageData.ArchivePackageAsync(package);
         }
-  }
+
+        public async Task<Package> GetFullPackageByNameAsync(string packageName)
+        {
+            return await _packageData.GetFullPackageByNameAsync(packageName);
+        }
+    }
 }
