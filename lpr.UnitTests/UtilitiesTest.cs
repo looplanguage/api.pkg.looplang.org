@@ -63,5 +63,59 @@ namespace lpr.Tests
 
             Assert.True(res);
         }
+
+        [Fact]
+        public void GetSemVerFromString_True()
+        {
+            string semVer = "0.1.0";
+
+            (Common.Models.Version version,bool res ) = Utilities.GetSemVerFromString(semVer);
+
+            Assert.True(res);
+
+            Assert.Equal(0, version.Major);
+            Assert.Equal(1, version.Minor);
+            Assert.Equal(0, version.Patch);
+        }
+
+        [Fact]
+        public void GetSemVerFromString_False_TooLong()
+        {
+            string semVer = "0.1.0.0";
+
+            (Common.Models.Version _, bool res) = Utilities.GetSemVerFromString(semVer);
+
+            Assert.False(res);
+        }
+
+        [Fact]
+        public void GetSemVerFromString_False_TooShort()
+        {
+            string semVer = "0.1";
+
+            (Common.Models.Version _, bool res) = Utilities.GetSemVerFromString(semVer);
+
+            Assert.False(res);
+        }
+
+        [Fact]
+        public void GetSemVerFromString_False_NoNumber()
+        {
+            string semVer = "0.1.n";
+
+            (Common.Models.Version _, bool res) = Utilities.GetSemVerFromString(semVer);
+
+            Assert.False(res);
+        }
+
+        [Fact]
+        public void GetSemVerFromString_False_StringEmpty()
+        {
+            string semVer = string.Empty;
+
+            (Common.Models.Version _, bool res) = Utilities.GetSemVerFromString(semVer);
+
+            Assert.False(res);
+        }
     }
 }

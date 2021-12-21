@@ -63,6 +63,11 @@ namespace lpr.Logic
 
             return true;
         }
+
+        public static string GetStringFromVersion(Common.Models.Version version)
+        {
+            return $"{version.Major}.{version.Minor}.{version.Patch}";
+        }
     }
 
 }

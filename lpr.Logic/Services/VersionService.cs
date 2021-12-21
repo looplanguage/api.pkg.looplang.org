@@ -25,12 +25,13 @@ namespace lpr.Logic.Services
             _packageService = packageService;
             _versionData = versiondata;
         }
-        public async Task CreateVersion(IFormFile file, string SemVer, string packageId)
+        public async Task AddVersion(IFormFile file, Common.Models.Version version, string packageId)
         {
             if (file == null)
                 throw new ApiException(400, new ErrorMessage("File null", "There was no file found"));
 
-            //check if user has privileges
+            //check if user has privileges but this feature is still missing from package
+
             if (file.ContentType != "application/zip" && file.ContentType != "application/x-tar" && file.ContentType != "application/x-zip-compressed")
                 throw new ApiException(415, new ErrorMessage("Unsupported media type", "You can only use a .zip or .tar file"));
 
@@ -39,20 +40,20 @@ namespace lpr.Logic.Services
             if (package == null)
                 throw new ApiException(404, new ErrorMessage("package not found", "The package you were adding a version to was not found"));
 
-            (Common.Models.Version version, bool succes) = Utilities.GetSemVerFromString(SemVer);
-
-            if (!succes)
-                throw new ApiException(400, new ErrorMessage("Invalid version", "A version can only contain 3 numbers eg. 0.1.0"));
 
             Common.Models.Version? previousVersion = package.GetLatestVersion();
-            
-            if (previousVersion != null)
-            {
-                if (!Utilities.IsVersionGreater(version, previousVersion))
-                    throw new ApiException(400, new ErrorMessage("Version too low", "The new version must be higher than the last version"));
-            }
 
-            if (! await _s3Client.DoesS3BucketExistAsync(package.Id.ToString()))
+            if (previousVersion != null && !Utilities.IsVersionGreater(version, previousVersion))
+                throw new ApiException(400, new ErrorMessage("Version too low", "The new version must be higher than the last version"));
+          
+            await UploadFileToStorageAsync(file, Utilities.GetStringFromVersion(version), package);
+
+            _versionData.AddVersion(version, package);
+        }
+
+        private async Task UploadFileToStorageAsync(IFormFile file, string SemVer, Package package)
+        {
+            if (!await _s3Client.DoesS3BucketExistAsync(package.Id.ToString()))
             {
                 var putBucketRequest = new PutBucketRequest
                 {
@@ -68,8 +69,6 @@ namespace lpr.Logic.Services
                 TransferUtility fileTransfer = new TransferUtility(_s3Client);
                 await fileTransfer.UploadAsync(stream, package.Id.ToString(), SemVer);
             }
-
-            _versionData.AddVersion(version, package);
         }
     }
 }

@@ -3,6 +3,7 @@ using lpr.Common.Interfaces.Data;
 using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
 using lpr.Data;
+using lpr.Logic;
 using lpr.Logic.Services;
 using lpr.WebAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -14,17 +15,20 @@ namespace lpr.WebAPI.Controllers
     public class VersionController : ControllerBase
     {
         private readonly IVersionService _versionService;
-        public VersionController(IAmazonS3 s3Client, IPackageData packagedata, IVersionData versionData)
+        public VersionController(IAmazonS3 s3Client, IPackageData packagedata, IVersionData versionData, IAccountData accountdata)
         {
-            _versionService = new VersionService(s3Client, new PackageService(packagedata), versionData);
+            _versionService = new VersionService(s3Client, new PackageService(packagedata, accountdata), versionData);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateVersion([FromForm] NewVersion newVersion)
         {
-            await _versionService.CreateVersion(newVersion.File, newVersion.Version, newVersion.PackageId);
+            (Common.Models.Version version, bool success) = Utilities.GetSemVerFromString(newVersion.Version);
+            if (!success)
+                throw new ApiException(400, new ErrorMessage("", ""));
+            await _versionService.AddVersion(newVersion.File, version, newVersion.PackageId);
 
-            return Ok();
+            return Ok(version);
         }
     }
 }

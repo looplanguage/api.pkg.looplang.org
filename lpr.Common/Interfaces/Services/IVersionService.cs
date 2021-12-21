@@ -9,6 +9,6 @@ namespace lpr.Common.Interfaces.Services
 {
     public interface IVersionService
     {
-        Task CreateVersion(IFormFile file, string SemVer, string packageId);
+        Task AddVersion(IFormFile file, Models.Version version, string packageId);
     }
 }
