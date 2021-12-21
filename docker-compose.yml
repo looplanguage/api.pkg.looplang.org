@@ -17,8 +17,6 @@ services:
       - ASPNETCORE_HTTPS_PORT=5001
       - ASPNETCORE_Kestrel__Certificates__Default__Password=ob6KdSAOuNB3oe7
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/dev-cert.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=Looplang
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev_cert.pfx
       - S3_AccessKey=root
       - S3_PrivateKey=rootpass
     depends_on:
