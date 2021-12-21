@@ -49,6 +49,22 @@ namespace lpr.WebAPI.Controllers {
       }
     }
 
+    [HttpPost("GetPackagesFromAccount/{accountId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetPackagesFromAccount(Guid accountId) {
+      try {
+        List<Package> output =
+            await _srv.GetPackagesFromAccountAsync(accountId);
+        return StatusCode(200, output);
+      } catch (ArgumentException ex) {
+        return StatusCode(400, new ErrorMessage(ex.Message));
+      } catch (Exception ex) {
+        return StatusCode(500, new ErrorMessage(ex.Message));
+      }
+    }
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

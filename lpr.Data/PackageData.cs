@@ -34,6 +34,18 @@ namespace lpr.Data {
       return organisation.Packages;
     }
 
+    public async Task<List<Package>> GetPackagesFromAccountAsync(Guid accountId) {
+      List<PackageMember> members = await _ctx.PackageMember.Where(a => a.Id == accountId).ToListAsync();
+
+      List<Package?> packages = members.Select(m => m.Package).ToList();
+      List<Package> output = packages.Where(p => p != null).Select(x => x).Cast<Package>().ToList();
+
+      if(packages == null)
+        throw new ArgumentException("No packages found.");
+
+      return output;
+    }
+
     public async Task<Package> CreatePackageAsync(Guid? organisationId, Guid accountId, Package newPackage) {
       //TODO: Link package to Account.
       // Do we also need to create the first 'fallback' package version?

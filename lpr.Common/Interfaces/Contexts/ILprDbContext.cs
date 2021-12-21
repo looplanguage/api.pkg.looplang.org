@@ -13,5 +13,6 @@ namespace lpr.Common.Interfaces.Contexts {
     public DbSet<Organisation> Organisation { get; set; }
     public DbSet<Package> Package { get; set; }
     public DbSet<Version> Version { get; set; }
+    public DbSet<PackageMember> PackageMember  { get; set; }
   }
 }
