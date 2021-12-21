@@ -17,5 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Services\SampleService.cs" />
+    <Compile Remove="Services\SeedService.cs" />
   </ItemGroup>
 </Project>

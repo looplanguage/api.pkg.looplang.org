@@ -45,8 +45,7 @@ namespace lpr.Logic.Services {
       return _organisationData.GetOrganisationById(OrgId);
     }
 
-    public async Task<List<Organisation>>
-    GetOrganisationsPaginatedAsync(int amount, Guid? lastOrganisationId) {
+    public async Task<List<Organisation>> GetOrganisationsPaginatedAsync(int amount, Guid? lastOrganisationId) {
       return await _organisationData.GetOrganisationsPaginatedAsync(
           amount, lastOrganisationId);
     }
