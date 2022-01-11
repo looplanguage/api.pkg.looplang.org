@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using lpr.Common.Interfaces.Data;
 using lpr.Common.Interfaces.Services;
@@ -39,6 +40,23 @@ namespace lpr.Tests {
             Package pack = await packageService.GetFullPackageAsync(System.Guid.Empty);
 
             Assert.Null(pack);
+        }
+
+        [Fact]
+        public async void GetPackagesFromAccountAsync_True()
+        {
+            Account Account = LoopFaker.Account();
+            Package Package = LoopFaker.Package();
+            Package.Name = "TestPackage";
+            List<Package> TestPackages = new List<Package>(){Package};
+            this.PackageDataMock.Setup(d => d.GetPackagesFromAccountAsync(Account.Id))
+                .Returns(Task.FromResult(TestPackages));
+
+            IPackageService packageService =
+                new PackageService(this.PackageDataMock.Object, this.AccountDataMock.Object);
+            List<Package> pack = await packageService.GetPackagesFromAccountAsync(Account.Id);
+
+            Assert.Equal(pack[0].Name, "TestPackage");
         }
 
         [Fact]

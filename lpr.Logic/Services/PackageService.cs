@@ -33,6 +33,11 @@ namespace lpr.Logic.Services {
             return await _packageData.GetPackagesFromOrganisationAsync(organisationId);
         }
 
+        public async Task<List<Package>> GetPackagesFromAccountAsync(Guid accountId)
+        {
+            return await _packageData.GetPackagesFromAccountAsync(accountId);
+        }
+
         public async Task<Package> CreatePackageAsync(Guid? orgId, Guid accId, Package newPackage) {
             if (newPackage == null)
                 throw new ApiException(500, new ErrorMessage("Package null", "The given package was null"));
