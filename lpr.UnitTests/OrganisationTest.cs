@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using lpr.Common.Interfaces.Data;
 using lpr.Common.Interfaces.Services;
 using lpr.Common.Models;
@@ -83,6 +84,23 @@ namespace lpr.Tests {
             var result = service.GetOrganisation(System.Guid.Empty);
 
             Assert.Null(result);
+        }
+
+        [Fact]
+        public async void GetOrganisationsFromAccountAsync_True()
+        {
+            Account Account = LoopFaker.Account();
+            Organisation Organisation = LoopFaker.Organisation();
+            Organisation.Name = "TestOrganisation";
+            List<Organisation> TestOrganisations = new List<Organisation>(){Organisation};
+            this.organisationDataMock.Setup(d => d.GetOrganisationsFromAccountAsync(Account.Id))
+                .Returns(Task.FromResult(TestOrganisations));
+
+            IOrganisationService organisationService =
+                new OrganisationService(this.organisationDataMock.Object);
+            List<Organisation> org = await organisationService.GetOrganisationsFromAccountAsync(Account.Id);
+
+            Assert.Equal(org[0].Name, "TestOrganisation");
         }
     }
 }
