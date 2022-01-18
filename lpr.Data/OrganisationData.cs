@@ -40,5 +40,15 @@ namespace lpr.Data {
       }
     }
 
+    public async Task<List<Organisation>> GetOrganisationsFromAccountAsync(Guid accountId)
+    {
+      List<OrganisationMember> members = await _dbContext.OrganisationMember.Where(a => a.Id == accountId).ToListAsync();
+
+      List<Organisation?> organisations = members.Select(m => m.Organisation).ToList();
+      List<Organisation> output = organisations.Where(p => p != null).Select(x => x).Cast<Organisation>().ToList();
+
+      return output;
+    }
+
   }
 }

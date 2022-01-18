@@ -58,6 +58,15 @@ namespace lpr.WebAPI.Controllers {
       return StatusCode(200, organisations);
     }
 
+    [HttpPost("GetOrganisationsFromAccount/{accountId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetOrganisationsFromAccount(Guid accountId) {
+      List<Organisation> output = await _organisationService.GetOrganisationsFromAccountAsync(accountId);
+      return StatusCode(200, output);
+    }
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

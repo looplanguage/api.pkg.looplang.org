@@ -49,5 +49,10 @@ namespace lpr.Logic.Services {
       return await _organisationData.GetOrganisationsPaginatedAsync(
           amount, lastOrganisationId);
     }
+
+    public async Task<List<Organisation>> GetOrganisationsFromAccountAsync(Guid accountId)
+    {
+      return await _organisationData.GetOrganisationsFromAccountAsync(accountId);
+    }
   }
 }
