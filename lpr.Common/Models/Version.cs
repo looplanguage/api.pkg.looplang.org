@@ -18,13 +18,22 @@ namespace lpr.Common.Models {
 
     [Required] public int Patch { get; set; }
 
-    public Package? Package { get; set; }
-
     public string? Documentation { get; set; }
 
     public DateTime Created { get; set; }
 
-    public bool Archived { get; set; }
+    public bool Deprecated { get; set; }
     public int Downloads { get; set; }
+
+    public Version(int major, int minor, int patch)
+    {
+        Id = Guid.NewGuid();
+        Major = major;
+        Minor = minor;
+        Patch = patch;
+        Created = DateTime.UtcNow;
+    }
+
+    public Version() { }
   }
 }

@@ -76,5 +76,10 @@ namespace lpr.Data {
       throw new NotImplementedException();
       // return await _ctx.Package.FindAsync(p => p.Id == packageId)
     }
+
+    public async Task<Package> GetFullPackageByNameAsync(string name)
+    {
+      return await _ctx.Package.Include(x => x.Versions).FirstOrDefaultAsync(x => x.Name == name);
+    }
   }
 }

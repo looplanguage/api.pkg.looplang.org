@@ -12,5 +12,6 @@ namespace lpr.Common.Interfaces.Services {
     public Task<Package> CreatePackageAsync(Guid? organisationId, Guid accountId, Package newPackage);
     public Task<Package> GetFullPackageAsync(Guid packageId); // TODO: Add auth
     public Task<Package> ArchivePackageAsync(Guid packageId); // TODO: Add auth
+    public Task<Package> GetFullPackageByNameAsync(string packageName);
   }
 }

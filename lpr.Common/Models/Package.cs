@@ -49,5 +49,16 @@ namespace lpr.Common.Models {
             Created = DateTime.UtcNow;
             Id = Guid.NewGuid();
         }
+
+        public Version? GetLatestVersion()
+        {
+            return Versions.OrderByDescending(x => x.Major).ThenByDescending(x => x.Minor).ThenByDescending(x => x.Patch).FirstOrDefault();
+        }
+
+        public Version? GetVersion(Version v)
+        {
+            return Versions.Where(x => x.Major == v.Major && x.Minor == v.Minor && x.Patch == v.Patch).FirstOrDefault();
+        }
+
     }
 }

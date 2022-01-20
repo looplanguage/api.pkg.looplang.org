@@ -14,7 +14,9 @@ string? githubClientId = Environment.GetEnvironmentVariable("lpr_github_clientid
 string? githubClientSecret = Environment.GetEnvironmentVariable("lpr_github_clientsecret");
 
 string? jwtTokenSecret = Environment.GetEnvironmentVariable("lpr_token_secret");
-
+string? s3accesskey = Environment.GetEnvironmentVariable("S3_AccessKey");
+string? s3privatekey = Environment.GetEnvironmentVariable("S3_PrivateKey");
+string? s3ServiceUrl = Environment.GetEnvironmentVariable("S3_Service_Url");
 var app = new Application(args);
 
 app.ConfigureCORS();
@@ -22,5 +24,6 @@ app.AddDatabaseConnection(connectionString);
 app.AddGitHubOauth(githubClientId, githubClientSecret);
 app.AddJwtService(jwtTokenSecret);
 app.AddSwagger();
+app.AddObjectStorage(s3accesskey, s3privatekey, s3ServiceUrl);
 
 app.Run();
