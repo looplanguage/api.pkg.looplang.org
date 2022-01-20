@@ -5,6 +5,7 @@ using lpr.Common.Interfaces.Services;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using lpr.Common.Models;
 
 namespace lpr.WebAPI.Middleware
 {
@@ -30,10 +31,10 @@ namespace lpr.WebAPI.Middleware
                     context.Items["AccountId"] = accountId;
                     //context.Items["GitHubAccessToken"] = dbContext.Account.FirstOrDefault(x => x.GithubId == githubId);
                 }
-            }
-            catch
+            
+            }catch(Exception)
             {
-                //ignore catch
+                //throw e;
             }
             await _next(context);
         }

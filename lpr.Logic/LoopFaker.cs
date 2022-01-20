@@ -18,7 +18,6 @@ namespace lpr.Logic
                 .RuleFor(o => o.Created, f => f.Date.Past())
                 .RuleFor(o => o.Logo, f => f.Image.LoremFlickrUrl());
             
-
             return faker.Generate();
         }
 
@@ -48,7 +47,7 @@ namespace lpr.Logic
             Faker<Version> faker = new Faker<Version>();
 
             faker.RuleFor(v => v.Created, f => f.Date.Past());
-            faker.RuleFor(v => v.Archived, f => f.Random.Bool());
+            faker.RuleFor(v => v.Deprecated, f => f.Random.Bool());
             faker.RuleFor(v => v.Major, f => f.Random.Int());
             faker.RuleFor(v => v.Minor, f => f.Random.Int());
             faker.RuleFor(v => v.Patch, f => f.Random.Int());
@@ -58,7 +57,6 @@ namespace lpr.Logic
 
             if (package != null)
             {
-                version.Package = package;
                 package.Versions.Add(version);
             }
 

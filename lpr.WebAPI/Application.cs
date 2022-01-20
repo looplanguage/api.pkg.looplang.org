@@ -1,4 +1,5 @@
 ﻿using System;
+using Amazon.S3;
 using lpr.Common.Interfaces.Contexts;
 using lpr.Common.Interfaces.Data;
 using lpr.Common.Interfaces.Services;
@@ -26,6 +27,7 @@ namespace lpr.WebAPI {
 
         builder.Services.AddScoped<IPackageService, PackageService>();
         builder.Services.AddScoped<IPackageData, PackageData>();
+        builder.Services.AddScoped<IVersionData, VersionData>();
 
         using (var scope =
                     builder.Services.BuildServiceProvider().CreateScope()) {
@@ -52,6 +54,26 @@ namespace lpr.WebAPI {
         builder.Services.AddScoped<IGitHubService, GitHubService>(x =>
             new GitHubService(clientId,clientSecret,x.GetRequiredService<IAccountData>())
         );
+    }
+
+    public void AddObjectStorage(string? accesskey,string? privatekey, string? serviceUrl)
+    {
+        if (accesskey == null || privatekey == null)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Warning: ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine($"Could not configure Objectstorage Client, Some features may crash the server");
+            return;
+        }
+
+        AmazonS3Config config = new AmazonS3Config()
+        {
+            ServiceURL = serviceUrl,
+            ForcePathStyle = true
+        };
+
+        builder.Services.AddScoped<IAmazonS3>(s => new AmazonS3Client(accesskey, privatekey, config));
     }
 
     public void AddJwtService(string? jwtTokenSecret)
@@ -120,8 +142,9 @@ namespace lpr.WebAPI {
 
         app.MapControllers();
 
-        app.UseMiddleware<GlobalErrorHandler>();
-        app.UseMiddleware<JWTMiddleware>();
+            app.UseMiddleware<JWTMiddleware>();
+            app.UseMiddleware<GlobalErrorHandler>();
+
 
         return app;
     }

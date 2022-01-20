@@ -35,8 +35,6 @@ namespace lpr.Logic.Services {
                 }
             }
             
-
-
             return _lprDbContext.SaveChanges();
         }
 
